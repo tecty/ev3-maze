@@ -50,16 +50,17 @@ class Node:
         next_dir = self.get_next_dir()
         self.branch[int(next_dir/90)]+=1
         return next_dir
-tree = Tree()
 
 
 if __name__ == '__main__':
 
+    tree = Tree()
     if tree.find_node(0,0)=='NULL':
         this_node= tree.add_node(0,0,0,-1,-1,0)
     else :
         this_node = tree.find_node(0,0)
     print (this_node.move_to(0))
+    this_node.print_node()
     this_node= tree.add_node(0,1,-1,-1,-1,0)
     print (this_node.get_next_dir())
 
