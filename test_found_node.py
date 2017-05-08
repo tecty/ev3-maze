@@ -52,9 +52,9 @@ def refresh_cor(distance):
     global x,y,head_dir
     # use head_dir to refresh the cordinate
     # distance /=420 # A3 size
-    distance /=300 # test area size
-    distance = int(round(distance,1))
-    if   head_dir ==   0:
+    # distance /=300 # test area size
+    # distance = int(round(distance,1))
+    if  head_dir  ==   0:
         x+= distance
     elif head_dir ==  90:
         y+= distance
@@ -124,111 +124,108 @@ def us_turn(to_dir, turning_speed = 250):
 
     sonarMotor.run_to_abs_pos(position_sp = distance, speed_sp = turning_speed, stop_action = "brake")
 
-    sleep(1)
+    sleep(1.5)
 
     finish = sonarMotor.position
     # print("finish:",finish)
 
     us_dir = to_dir
     return 1
-def found_new_node():
-    global lastFrontDis, branch_right, branch_left, branch_front, wall_distance, head_dir
 
-    # to get the walls around
-    if usR.value()>wall_distance:
-        branch_right =0
-    else:
-        branch_right = -1
-    if usL.value()*10>wall_distance:
-        branch_left =0
-    else:
-        branch_left = -1
-    us_turn(0)
-    # detecting the distance at front
-    if usL.value()*10>wall_distance:
-        branch_front =  0
-    else:
-        branch_front = -1
+def is_wall(dir):
+    # return -1 has wall return 0 have a branch
+    if   dir == 'l':
+        us_turn(90)
+        dis = usL.value()
+    elif dir == 'f':
+        us_turn(0)
+        dis = usL.value()
+    elif dir == 'r':
+        dis = usR.value()
 
-    # refresh the cordinate of this position
-    print ('lastFrontDis ', lastFrontDis, 'usl value', usL.value())
-    refresh_cor(lastFrontDis-usL.value()*10)
-    # get all the walls info into the tree
-    if tree.find_node(x,y)=='NULL':
-        this_node= tree.add_node(x,y,branch_front,branch_left,branch_right,head_dir)
-    else :
-        this_node = tree.find_node(x,y)
-    # turn to the new direction that computer decide
-    head_dir=this_node.move_to(head_dir)
-    turn(head_dir)
-    # refresh this branch length to the end
-    lastFrontDis = usL.value()
+    if dis < wall_distance:
+        # there is a wall in that direction
+        return -1
+    return 0
 
-    # back to the side mode of right sonar
-    us_turn(90)
+# def found_new_node():
+#     global lastFrontDis, branch_right, branch_left, branch_front, wall_distance, head_dir
+#
+#     # to get the walls around
+#     if usR.value()>wall_distance:
+#         branch_right =0
+#     else:
+#         branch_right = -1
+#     if usL.value()*10>wall_distance:
+#         branch_left =0
+#     else:
+#         branch_left = -1
+#     us_turn(0)
+#     # detecting the distance at front
+#     if usL.value()*10>wall_distance:
+#         branch_front =  0
+#     else:
+#         branch_front = -1
+#
+#     # refresh the cordinate of this position
+#     print ('lastFrontDis ', lastFrontDis, 'usl value', usL.value())
+#     refresh_cor(lastFrontDis-(usL.value()*10))
+#     # get all the walls info into the tree
+#     if tree.find_node(x,y)=='NULL':
+#         this_node= tree.add_node(x,y,branch_front,branch_left,branch_right,head_dir)
+#     else :
+#         this_node = tree.find_node(x,y)
+#     # turn to the new direction that computer decide
+#     turn(this_node.move_to(head_dir))
+#     # refresh this branch length to the end
+#     lastFrontDis = usL.value()*10
+#
+#     # back to the side mode of right sonar
+#     us_turn(90)
+#
+# print("finished initialisation")
+# # inital the first node
+# if lastFrontDis > wall_distance:
+#     branch_front = 0
+# else:
+#     branch_front = -1
+# us_turn(90)
+# if usR.value()>wall_distance:
+#     branch_right = 0
+# else :
+#     branch_right = -1
+# if usL.value()>wall_distance:
+#     branch_left = 0
+# else :
+#     branch_left = -1
+# # get all the walls info into the tree
+# if tree.find_node(x,y)=='NULL':
+#     this_node= tree.add_node(x,y,branch_front,branch_left,branch_right,head_dir)
+# else :
+#     this_node = tree.find_node(x,y)
+# # turn to the new direction that computer decide
+# head_dir=this_node.move_to(head_dir)
+# turn(head_dir)
+# print("initialized first node")
 
 
 
 
 
-print ('finished initialisation')
-# while not btn.any():
-#     sleep(0.1)
 
 
 
 
-#start the main programme
-while not btn.any() :
 
-    print ("R dis:", usR.value(), "L dis:", usL.value()*10)
+while not btn.any():
     if usR.value()>wall_distance or usL.value()*10>wall_distance:
-        if status!=1:
-            status=1
-            # to move forward a bit to get the center of the branch
-            sleep(0.5)
-            motor_stop()
-            found_new_node()
-            # to get into the branch
-            motor_move()
-            sleep(1)
-
-    elif cs.value()!=0 and cs.value()!=5 :
-        # detected a wall
-        if status!=2:
-            status=2
-            motor_stop()
-            found_new_node()
-            # to get into the branch
-            motor_move()
-            sleep(1)
-    # elif cs.value() == 5:
-    #     # found the can
-    #     if status!=3:
-    #         status=3
-    #
-    #         # set the information of this node
-    #         found_new_node()
-    #
-    #         '''grap the can and go back'''
-    #         # grap the can
-    #         Sound.speak('found the can').wait()
-    #
-    #         # go back
-    #         us_turn(0)
-    #         while x!=0 or y!=0:
-    #             branch_distance = usR.value()
-    #
-    #             while !(branch_distance< usR.value()):
-
-
-    else:
-        if status!=4:
-            motor_move()
-            status=4
-
-
-
+        # to move forward a bit to get the center of the branch
+        sleep(2)
+        motor_stop()
+        found_new_node()
+        motor_move()
+        # get into branch
+        sleep(1)
 
 # end programme
 rightMotor.stop()
