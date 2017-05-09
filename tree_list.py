@@ -7,13 +7,13 @@ class Tree:
     def add_node(self,x,y,front,left,right,head_dir):
         # input left,right is 0(has a way) or -1(wall)
         if head_dir ==0:
-            this_node= Node(x,y,front,right,1,left)
+            this_node= Node(x,y,front,right,0,left)
         if head_dir ==90:
-            this_node= Node(x,y,left,front,right,1)
+            this_node= Node(x,y,left,front,right,0)
         if head_dir ==180:
-            this_node= Node(x,y,1,left,front,right)
+            this_node= Node(x,y,0,left,front,right)
         if head_dir ==270:
-            this_node= Node(x,y,right,front,left,1)
+            this_node= Node(x,y,right,front,left,0)
         self.nodes.append(this_node)
         return this_node
     def find_node(self,x,y):
@@ -44,24 +44,48 @@ class Node:
     def print_node(self):
         print("cor =", self.cor,"branch =", self.branch)
     def move_to(self,head_dir):
-        head_dir/=90
-        head_dir= (head_dir+2)%4
-        self.branch[int(head_dir)]+=1
+        # add one on where it from
+        self.branch[int(head_dir/90+2)%4]+=1
         next_dir = self.get_next_dir()
+        # add one on where it to
         self.branch[int(next_dir/90)]+=1
         return next_dir
+    def back_to(self,head_dir):
+        # to record the count in the branch
+        back_dir_count = 10
+        # to auto increase while scan in branch
+        direction = 0
+        # to record the direction that back_dir_count at
+        back_dir = 0
+        for count_branch in self.branch:
+            if back_dir_count> count_branch and count_branch >=1:
+                # ignore the branch that haven't visit
+                back_dir = direction
+                back_dir_count = count_branch
+            direction += 90
+        return back_dir
 
 
 if __name__ == '__main__':
 
     tree = Tree()
+    head_dir = 0
     if tree.find_node(0,0)=='NULL':
         this_node= tree.add_node(0,0,0,-1,-1,0)
     else :
         this_node = tree.find_node(0,0)
-    print (this_node.move_to(0))
+    head_dir =this_node.move_to(0)
+    print ("next dir is",head_dir)
     this_node.print_node()
-    this_node= tree.add_node(0,1,-1,-1,-1,0)
-    print (this_node.get_next_dir())
-
+    this_node= tree.add_node(0,1,-1,-1,0,0)
+    head_dir =this_node.move_to(head_dir)
     this_node.print_node()
+    print ("next dir is",head_dir)
+    this_node= tree.add_node(1,1,-1,-1,0,0)
+    head_dir =this_node.move_to(head_dir)
+    this_node.print_node()
+    print ("next dir is",head_dir)
+    this_node= tree.add_node(1,0,-1,-1,-1,0)
+    head_dir =this_node.move_to(head_dir)
+    this_node.print_node()
+    print ("next dir is",head_dir)
