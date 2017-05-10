@@ -47,7 +47,7 @@ branch_right = -1
 
 """config part"""
 # length of one unit
-unit_length=1000
+unit_length=450
 # theshold of detecting a wall
 wall_distance= 150
 # the color of the can 5 is red
@@ -312,7 +312,7 @@ if __name__ == '__main__':
     motor_stop()
 
     # now is at the node before
-    to_dir = this_node.move(head_dir)
+    to_dir = this_node.move_to(head_dir)
     #turn 180 degree
     turn(to_dir)
     #refresh the cordinate by a low level func so it won't move
