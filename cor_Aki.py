@@ -47,9 +47,9 @@ branch_right = -1
 
 """config part"""
 # length of one unit
-unit_length=300
+unit_length=1000
 # theshold of detecting a wall
-wall_distance= unit_length*2/3
+wall_distance= 150
 # the color of the can 5 is red
 can_color =5
 
@@ -257,13 +257,13 @@ def cor_move(head_dir):
     us_turn(0)
     # record the position before it move forward
     before_distance = rightMotor.position
-    to_distance = usL.value()-unit_length
+    to_distance = rightMotor.position-unit_length
     print("to_distance = ",to_distance,"unit_length=",unit_length,"usvalue",usL.value())
     if to_distance < 50:
         to_distance = 50
         print("to_distance = ",to_distance)
     motor_move()
-    while usL.value()>to_distance and (not btn.any()) and is_color==0:
+    while rightMotor.position>to_distance and (not btn.any()) and is_color==0:
         sleep(0.01)
         if cs.value()== can_color:
             motor_stop()
