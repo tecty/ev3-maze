@@ -318,6 +318,8 @@ if __name__ == '__main__':
     #refresh the cordinate by a low level func so it won't move
     refresh_cor(head_dir)
 
+    is_color = 0
+
     # revise its route
     print("now is retreat it's route")
     while (x!=0 or y!=0) and not btn.any() :
