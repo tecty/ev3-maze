@@ -62,6 +62,16 @@ def motor_stop():
     rightMotor.stop()
     motor_move(0,0)
 def refresh_cor(head_dir):
+    """new method to refresh_cor"""
+    global x,y
+    if head_dir == 0:
+        y+=1
+    elif head_dir==90:
+        x+=1
+    elif head_dir==180:
+        y-=1
+    elif head_dir==270:
+        x-=1
     """
     <!-- abandoned method -->
     global x,y,head_dir
@@ -78,16 +88,7 @@ def refresh_cor(head_dir):
     elif head_dir == 270:
         y-= distance
     """
-    """new method to refresh_cor"""
-    global x,y
-    if head_dir == 0:
-        y+=1
-    elif head_dir==90:
-        x+=1
-    elif head_dir==180:
-        y-=1
-    elif head_dir==270:
-        x-=1
+
 
 def turn(to_dir, turning_speed = 250, reversing_speed = 30):
     global head_dir
@@ -273,14 +274,17 @@ if __name__ == '__main__':
     """test cor move and main func"""
     # initialisation first node
     while not btn.any():
-        if tree.find_node(x,y)=='NULL':
-            this_node= tree.add_node(x,y,is_wall('f'),is_wall('l'),is_wall('r'),head_dir)
-        else :
-            this_node = tree.find_node(x,y)
-        this_node.print_node()
-        to_dir =this_node.move_to(head_dir)
-        turn(to_dir)
+        # if tree.find_node(x,y)=='NULL':
+        #     this_node= tree.add_node(x,y,is_wall('f'),is_wall('l'),is_wall('r'),head_dir)
+        # else :
+        #     this_node = tree.find_node(x,y)
+        # this_node.print_node()
+        # to_dir =this_node.move_to(head_dir)
+        # turn(to_dir)
+        # cor_move(head_dir)
         cor_move(head_dir)
+        print("the distance to the wall befor cor_move", before_distance)
+        print("new cordinate now is [",x,y,"]")
 
 
 

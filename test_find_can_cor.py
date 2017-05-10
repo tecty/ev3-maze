@@ -1,6 +1,6 @@
 from cor_Aki import *
 print("finished initialisation")
-while not btn.any() and cs.value != can_color:
+while not btn.any() and cs.value() != can_color:
     """ordinary movement by cor"""
     if tree.find_node(x,y)=='NULL':
         this_node= tree.add_node(x,y,is_wall('f'),is_wall('l'),is_wall('r'),head_dir)
