@@ -307,7 +307,7 @@ if __name__ == '__main__':
         this_node.print_node()
         to_dir =this_node.move_to(head_dir)
         turn(to_dir)
-        cor_move(head_dir,is_wall('r'))
+        cor_move(head_dir,-is_wall('r'))
 
     """code after found the can"""
 
@@ -346,7 +346,7 @@ if __name__ == '__main__':
         turn(to_dir)
         print ("here is",x,",",y)
 
-        cor_move(head_dir,is_wall('r'))
+        cor_move(head_dir,-is_wall('r'))
         print ("next dir is",head_dir)
 
     print("finally here is:",x,",",y)
