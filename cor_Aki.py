@@ -263,7 +263,6 @@ def cor_move(head_dir):
         print("to_distance = ",to_distance)
     print("to_distance = ",to_distance)
     motor_move()
-    print("is color now is ",is_color)
     while usL.value()>to_distance and (not btn.any()) and is_color==0:
         sleep(0.01)
         if cs.value()== can_color:
@@ -278,6 +277,7 @@ def cor_move(head_dir):
 if __name__ == '__main__':
     print("finished initialisation")
     while (not btn.any()) and is_color== 0:
+        print("is color now is ",is_color)
         cor_move(head_dir)
 
     print("find the red can")
