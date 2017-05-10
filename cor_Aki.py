@@ -259,9 +259,9 @@ def cor_move(head_dir):
     before_distance = rightMotor.position
     to_distance = rightMotor.position-unit_length
     print("to_distance = ",to_distance,"unit_length=",unit_length,"usvalue",usL.value())
-    if to_distance < 50:
+    """if to_distance < 50:
         to_distance = 50
-        print("to_distance = ",to_distance)
+        print("to_distance = ",to_distance)"""
     motor_move()
     while rightMotor.position>to_distance and (not btn.any()) and is_color==0:
         sleep(0.01)
