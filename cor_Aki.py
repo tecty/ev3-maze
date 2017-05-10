@@ -47,9 +47,9 @@ branch_right = -1
 
 """config part"""
 # length of one unit
-unit_length=500
+unit_length=550
 # theshold of detecting a wall
-wall_distance= 150
+wall_distance= 180
 # the color of the can 5 is red
 can_color =5
 
@@ -263,7 +263,7 @@ def cor_move(head_dir):
         to_distance = 50
         print("to_distance = ",to_distance)"""
     motor_move()
-    while rightMotor.position>to_distance and (not btn.any()) and is_color==0:
+    while rightMotor.position>to_distance and (not btn.any()) and is_color==0 and usL.value()>60:
         sleep(0.01)
         if cs.value()== can_color:
             motor_stop()
