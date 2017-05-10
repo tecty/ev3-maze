@@ -44,6 +44,7 @@ while (x!=0 or y!=0) and not btn.any() :
     this_node.print_node()
     to_dir =this_node.back_to(head_dir)
     turn(to_dir)
+    print ("here is",x,",",y)
     cor_move(head_dir)
     print ("next dir is",head_dir)
 
