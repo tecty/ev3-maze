@@ -276,11 +276,11 @@ def cor_move(head_dir):
                 motor_move()
         else:
             motor_move()
-        if usL.value()>=usR.value()*10 +20:
+        if usR.value()*10 <80:
             if modify_status !=1:
                 modify_status =1
                 motor_move(200,210)
-        elif usL.value()*10 +20 <usR.value():
+        elif usR.value()*10  > 120:
             if modify_status !=2:
                 modify_status =2
                 motor_move(210,200)
