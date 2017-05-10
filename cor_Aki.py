@@ -32,7 +32,8 @@ so it could be possible to calculation
 
 # store the distance to the wall before cor_move
 before_distance=0
-
+# store whether the sensor detected red color
+is_color=0
 # initialisation the tree var
 tree = Tree()
 
@@ -250,7 +251,7 @@ print("initialized first node")
 
 # test cor_move
 def cor_move(head_dir):
-    global before_distance
+    global before_distance, is_color
     # refresh the global cordinate by its head direction
     refresh_cor(head_dir)
     us_turn(0)
@@ -261,8 +262,12 @@ def cor_move(head_dir):
         print("to_distance = ",to_distance)
     print("to_distance = ",to_distance)
     motor_move()
-    while usL.value()>to_distance and not btn.any() and cs.value()!= can_color:
+    while usL.value()>to_distance and not btn.any() and is_color==0:
         sleep(0.01)
+        if cs.value()== can_color:
+            sleep(0.1)
+            if cs.value()== can_color:
+                is_color=1
     motor_stop()
 
 
@@ -270,7 +275,7 @@ def cor_move(head_dir):
 
 if __name__ == '__main__':
     print("finished initialisation")
-    while not btn.any() and cs.value() != can_color:
+    while (not btn.any()) and is_color== 0:
         cor_move(head_dir)
 
     print("find the red can")
@@ -278,7 +283,8 @@ if __name__ == '__main__':
     Sound.tone([(1000, 500, 500)] * 3)
     # revise to the last node
     motor_move(-200,-200)
-    while not btn.any() and usL.value()<before_distance:
+    print("usvalue is",usL.value(),"before_distance is",before_distance)
+    while (not btn.any()) and usL.value()<before_distance:
         sleep(0.1)
     motor_stop()
 
