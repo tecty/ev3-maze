@@ -48,7 +48,7 @@ branch_right = -1
 # length of one unit
 unit_length=300
 # theshold of detecting a wall
-wall_distance= unit_length/2
+wall_distance= unit_length*2/3
 # the color of the can 5 is red
 can_color =5
 
@@ -271,23 +271,9 @@ def cor_move(head_dir):
 if __name__ == '__main__':
     print("finished initialisation")
     while not btn.any():
+        head_dir=270
         this_node= tree.add_node(x,y,is_wall('f'),is_wall('l'),is_wall('r'),head_dir)
-        this_node=print_node()
-        sleep(2)
-    while not btn.any():
-        head_dir =90
-        this_node= tree.add_node(x,y,is_wall('f'),is_wall('l'),is_wall('r'),head_dir)
-        this_node=print_node()
-        sleep(2)
-    while not btn.any():
-        head_dir =180
-        this_node= tree.add_node(x,y,is_wall('f'),is_wall('l'),is_wall('r'),head_dir)
-        this_node=print_node()
-        sleep(2)
-    while not btn.any():
-        head_dir =270
-        this_node= tree.add_node(x,y,is_wall('f'),is_wall('l'),is_wall('r'),head_dir)
-        this_node=print_node()
+        this_node.print_node()
         sleep(2)
 
     print("end of the programme")
