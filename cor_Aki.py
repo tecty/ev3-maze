@@ -49,7 +49,7 @@ branch_right = -1
 # length of one unit
 unit_length=550
 # theshold of detecting a wall
-wall_distance= 180
+wall_distance= 250
 # the color of the can 5 is red
 can_color =5
 
