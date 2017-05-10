@@ -255,7 +255,7 @@ def cor_move(head_dir):
     us_turn(0)
     before_distance = usL.value()
     to_distance = usL.value()-unit_length
-    if to_distance < 0:
+    if to_distance < 50:
         to_distance = 50
         print("to_distance = ",to_distance)
     print("to_distance = ",to_distance)
