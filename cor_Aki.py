@@ -264,7 +264,7 @@ def cor_move(head_dir):
         print("to_distance = ",to_distance)
     motor_move()
     while usL.value()>to_distance and (not btn.any()) and is_color==0:
-        sleep(0.1)
+        sleep(0.01)
         if cs.value()== can_color:
             motor_stop()
             sleep(0.01)
