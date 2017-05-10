@@ -119,9 +119,8 @@ def turn(to_dir, turning_speed = 250, reversing_speed = 30):
         # print(gs.value())
         sleep(0.005)
 
-    rightMotor.stop()
-    leftMotor.stop()
-
+    motor_stop()
+    sleep(0.1)
     # print("*", gs.value())
 
     while gs.value() * direction > angle:
@@ -130,9 +129,8 @@ def turn(to_dir, turning_speed = 250, reversing_speed = 30):
         # print(gs.value())
         sleep(0.005)
 
-    rightMotor.stop()
-    leftMotor.stop()
-
+    motor_stop()
+    sleep(0.1)
     # print("*",gs.value())
 
     head_dir = to_dir
@@ -280,7 +278,7 @@ def cor_move(head_dir):
             if modify_status !=1:
                 modify_status =1
                 motor_move(200,210)
-        elif usR.value()*10  > 120:
+        elif usR.value()*10 > 120:
             if modify_status !=2:
                 modify_status =2
                 motor_move(210,200)
