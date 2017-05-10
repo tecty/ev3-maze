@@ -18,7 +18,6 @@ class Tree:
         return this_node
     def find_node(self,x,y):
         for node in self.nodes:
-            print(node.cor)
             if node.cor[0] == x and node.cor[1] == y:
                 return node
         return 'NULL'
@@ -51,41 +50,78 @@ class Node:
         self.branch[int(next_dir/90)]+=1
         return next_dir
     def back_to(self,head_dir):
+        #refresh the correct cordinate in case it would go back to where it from
+        self.branch[int(head_dir/90+2)%4]+=1
+
         # to record the count in the branch
         back_dir_count = 10
         # to auto increase while scan in branch
         direction = 0
         # to record the direction that back_dir_count at
         back_dir = 0
+
+        self.print_node
         for count_branch in self.branch:
             if back_dir_count> count_branch and count_branch >=1:
                 # ignore the branch that haven't visit
                 back_dir = direction
                 back_dir_count = count_branch
             direction += 90
+
+        # refresh the branch of it would go to
+        self.branch[int(back_dir/90)]+=1
         return back_dir
 
 
 if __name__ == '__main__':
 
+    x=0
+    y=0
+    def cor_move(head_dir):
+        global x,y
+        if head_dir == 0:
+            y+=1
+        elif head_dir==90:
+            x+=1
+        elif head_dir==180:
+            y-=1
+        elif head_dir==270:
+            x-=1
     tree = Tree()
     head_dir = 0
-    if tree.find_node(0,0)=='NULL':
-        this_node= tree.add_node(0,0,0,-1,-1,0)
+    if tree.find_node(x,y)=='NULL':
+        this_node= tree.add_node(0,0,0,-1,-1,head_dir)
     else :
         this_node = tree.find_node(0,0)
     head_dir =this_node.move_to(0)
     print ("next dir is",head_dir)
     this_node.print_node()
-    this_node= tree.add_node(0,1,-1,-1,0,0)
+    cor_move(head_dir)
+
+    print ("head_dir = ",head_dir)
+    this_node= tree.add_node(x,y,-1,-1,0,head_dir)
     head_dir =this_node.move_to(head_dir)
+    cor_move(head_dir)
     this_node.print_node()
     print ("next dir is",head_dir)
-    this_node= tree.add_node(1,1,-1,-1,0,0)
+    this_node= tree.add_node(x,y,-1,-1,0,head_dir)
     head_dir =this_node.move_to(head_dir)
+    cor_move(head_dir)
     this_node.print_node()
     print ("next dir is",head_dir)
-    this_node= tree.add_node(1,0,-1,-1,-1,0)
+    this_node= tree.add_node(x,y,-1,-1,-1,head_dir)
     head_dir =this_node.move_to(head_dir)
+    cor_move(head_dir)
     this_node.print_node()
     print ("next dir is",head_dir)
+
+
+    print ("\nrevise robot")
+    # reversing the route
+    while x!=0 or y!=0:
+        this_node = tree.find_node(x,y)
+        head_dir=this_node.back_to(head_dir)
+        this_node.print_node()
+        cor_move(head_dir)
+        print ("next dir is",head_dir)
+    print(x,",",y)
