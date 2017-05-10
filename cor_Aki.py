@@ -255,7 +255,8 @@ def cor_move(head_dir):
     # refresh the global cordinate by its head direction
     refresh_cor(head_dir)
     us_turn(0)
-    before_distance = usL.value()
+    # record the position before it move forward
+    before_distance = rightMotor.position
     to_distance = usL.value()-unit_length
     if to_distance < 50:
         to_distance = 50
@@ -283,9 +284,9 @@ if __name__ == '__main__':
     Sound.tone([(1000, 500, 500)] * 3)
     # revise to the last node
     motor_move(-200,-200)
-    print("usvalue is",usL.value(),"before_distance is",before_distance)
-    while (not btn.any()) and usL.value()<before_distance:
-        sleep(0.1)
+    print("old position is",rightMotor.position,"before_distance is",before_distance)
+    while (not btn.any()) and rightMotor.position<before_distance:
+        sleep(0.01)
     motor_stop()
 
     print("end of the programme")

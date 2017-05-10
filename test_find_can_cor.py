@@ -1,6 +1,6 @@
 from cor_Aki import *
 print("finished initialisation")
-while not btn.any() and cs.value() != can_color:
+while (not btn.any()) and  is_color== 0:
     """ordinary movement by cor"""
     if tree.find_node(x,y)=='NULL':
         this_node= tree.add_node(x,y,is_wall('f'),is_wall('l'),is_wall('r'),head_dir)
@@ -30,7 +30,9 @@ while not btn.any() and usL.value()<before_distance:
 motor_stop()
 
 # now is at the node before
-head_dir = this_node.move(head_dir)
+to_dir = this_node.move(head_dir)
+#turn 180 degree
+turn(to_dir)
 #refresh the cordinate by a low level func so it won't move
 refresh_cor(head_dir)
 
@@ -38,8 +40,9 @@ refresh_cor(head_dir)
 print("now is retreat it's route")
 while (x!=0 or y!=0) and not btn.any() :
     this_node = tree.find_node(x,y)
-    head_dir=this_node.back_to(head_dir)
     this_node.print_node()
+    to_dir =this_node.back_to(head_dir)
+    turn(to_dir)
     cor_move(head_dir)
     print ("next dir is",head_dir)
 
