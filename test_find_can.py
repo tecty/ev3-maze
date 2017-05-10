@@ -6,6 +6,10 @@ while not btn.any() and cs.value() != can_color:
 print("find the red can")
 # sound the alarm of found the can
 Sound.tone([(1000, 500, 500)] * 3)
-
+# revise to the last node
+motor_move(-200,-200)
+while not btn.any() and us.value()<before_distance:
+    sleep(0.1)
+motor_stop()
 
 print("end of the programme")

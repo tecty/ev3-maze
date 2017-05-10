@@ -44,6 +44,8 @@ while (x!=0 or y!=0) and not btn.any() :
     print ("next dir is",head_dir)
 
 print("finally here is:",x,",",y)
+
+motor_stop()
 print("end of the programme")
 
 
