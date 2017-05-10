@@ -248,7 +248,7 @@ print("initialized first node")
 
 
 # test cor_move
-def cor_move(head_dir):
+def cor_move(head_dir,modfiyable=0):
     global before_distance, is_color
     # refresh the global cordinate by its head direction
     refresh_cor(head_dir)
@@ -260,9 +260,25 @@ def cor_move(head_dir):
     """if to_distance < 50:
         to_distance = 50
         print("to_distance = ",to_distance)"""
+    mdify_status= 0
+    if modfiyable ==1:
+        # only modify while has wall on right
+        for i in range(0,10):
+            # base on the distance to the wall to modify its track
+            sleep(0.1) # at the branc to modify
+            if usR.value()*10 <80:
+                if modify_status !=1:
+                    modify_status =1
+                    motor_move(250,260)
+            elif usR.value()*10 > 120:
+                if modify_status !=2:
+                    modify_status =2
+                    motor_move(260,250)
+            else :
+                if modify_status !=3:
+                    modify_status =3
+                    motor_move()
     motor_move()
-    sleep(1) # get into the branch
-    modify_status= 0
     while rightMotor.position>to_distance and (not btn.any()) and is_color==0 and usL.value()>60:
         sleep(0.01)
         if cs.value()== can_color:
@@ -274,14 +290,7 @@ def cor_move(head_dir):
                 motor_move()
         else:
             motor_move()
-        if usR.value()*10 <80:
-            if modify_status !=1:
-                modify_status =1
-                motor_move(200,210)
-        elif usR.value()*10 > 120:
-            if modify_status !=2:
-                modify_status =2
-                motor_move(210,200)
+
     motor_stop()
 
 
@@ -298,7 +307,7 @@ if __name__ == '__main__':
         this_node.print_node()
         to_dir =this_node.move_to(head_dir)
         turn(to_dir)
-        cor_move(head_dir)
+        cor_move(head_dir,is_wall('r'))
 
     """code after found the can"""
 
@@ -337,7 +346,7 @@ if __name__ == '__main__':
         turn(to_dir)
         print ("here is",x,",",y)
 
-        cor_move(head_dir)
+        cor_move(head_dir,is_wall('r'))
         print ("next dir is",head_dir)
 
     print("finally here is:",x,",",y)
