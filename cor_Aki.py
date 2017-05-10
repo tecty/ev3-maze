@@ -263,17 +263,27 @@ def cor_move(head_dir):
         to_distance = 50
         print("to_distance = ",to_distance)"""
     motor_move()
+    sleep(1) # get into the branch
+    modify_status= 0
     while rightMotor.position>to_distance and (not btn.any()) and is_color==0 and usL.value()>60:
         sleep(0.01)
         if cs.value()== can_color:
             motor_stop()
-            sleep(0.01)
+            sleep(0.1)
             if cs.value()== can_color:
                 is_color=1
             else:
                 motor_move()
         else:
             motor_move()
+        if usL.value()>=usR.value()*10 +20:
+            if modify_status !=1:
+                modify_status =1
+                motor_move(200,210)
+        elif usL.value()*10 +20 <usR.value():
+            if modify_status !=2:
+                modify_status =2
+                motor_move(210,200)
     motor_stop()
 
 
