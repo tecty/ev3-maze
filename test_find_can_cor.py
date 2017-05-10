@@ -25,8 +25,9 @@ this_node.print_node()
 
 # revise to the last node
 motor_move(-200,-200)
-while not btn.any() and usL.value()<before_distance:
-    sleep(0.1)
+print("old position is",rightMotor.position,"before_distance is",before_distance)
+while (not btn.any()) and rightMotor.position<before_distance:
+    sleep(0.01)
 motor_stop()
 
 # now is at the node before
@@ -49,9 +50,4 @@ while (x!=0 or y!=0) and not btn.any() :
 print("finally here is:",x,",",y)
 
 motor_stop()
-print("end of the programme")
-
-
-
-
 print("end of the programme")

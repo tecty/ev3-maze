@@ -1,6 +1,7 @@
 from cor_Aki import *
 print("finished initialisation")
 while (not btn.any()) and is_color== 0:
+    print("is color now is ",is_color)
     cor_move(head_dir)
 
 print("find the red can")
