@@ -8,7 +8,7 @@ print("find the red can")
 Sound.tone([(1000, 500, 500)] * 3)
 # revise to the last node
 motor_move(-200,-200)
-while not btn.any() and us.value()<before_distance:
+while not btn.any() and usL.value()<before_distance:
     sleep(0.1)
 motor_stop()
 

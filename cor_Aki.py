@@ -270,10 +270,16 @@ def cor_move(head_dir):
 
 if __name__ == '__main__':
     print("finished initialisation")
-    while not btn.any():
-        head_dir=270
-        this_node= tree.add_node(x,y,is_wall('f'),is_wall('l'),is_wall('r'),head_dir)
-        this_node.print_node()
-        sleep(2)
+    while not btn.any() and cs.value() != can_color:
+        cor_move(head_dir)
+
+    print("find the red can")
+    # sound the alarm of found the can
+    Sound.tone([(1000, 500, 500)] * 3)
+    # revise to the last node
+    motor_move(-200,-200)
+    while not btn.any() and usL.value()<before_distance:
+        sleep(0.1)
+    motor_stop()
 
     print("end of the programme")
