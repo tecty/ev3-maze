@@ -23,12 +23,6 @@ x = 0
 y = 0
 # face direction of robot
 head_dir = 0
-'''
-<!-- abandoned -->
-store the last detecting distance at front
-so it could be possible to calculation
-# lastFrontDis=usL.value()
-'''
 
 # store the distance to the wall before cor_move
 before_distance=0
@@ -37,15 +31,7 @@ is_color=0
 # initialisation the tree var
 tree = Tree()
 
-"""
-<!-- abandoned -->
-# to record the walls of its three side
-branch_front = -1
-branch_left  = -1
-branch_right = -1
-"""
-
-"""config part"""
+"""config part these values should be modify """
 # length of one unit
 unit_length=550
 # theshold of detecting a wall
@@ -73,23 +59,6 @@ def refresh_cor(head_dir):
         y-=1
     elif head_dir==270:
         x-=1
-    """
-    <!-- abandoned method -->
-    global x,y,head_dir
-    # use head_dir to refresh the cordinate
-    # distance /=420 # A3 size
-    # distance /=300 # test area size
-    # distance = int(round(distance,1))
-    if  head_dir  ==   0:
-        x+= distance
-    elif head_dir ==  90:
-        y+= distance
-    elif head_dir == 180:
-        x-= distance
-    elif head_dir == 270:
-        y-= distance
-    """
-
 
 def turn(to_dir, turning_speed = 250, reversing_speed = 30):
     global head_dir
@@ -105,33 +74,26 @@ def turn(to_dir, turning_speed = 250, reversing_speed = 30):
         angle += 360
 
     if angle == 0: return 0
-    # print("angle:", angle)
-    # print("direction", direction)
     gs.mode = 'GYRO-RATE'
     gs.mode = 'GYRO-ANG'
 
-    # print("*",gs.value())
     #make a turn
     leftMotor.run_forever(speed_sp = direction * turning_speed *(-1))
     rightMotor.run_forever(speed_sp = - direction * turning_speed *(-1))
 
     while gs.value() * direction < angle:
-        # print(gs.value())
         sleep(0.005)
 
     motor_stop()
     sleep(0.1)
-    # print("*", gs.value())
 
     while gs.value() * direction > angle:
         leftMotor.run_forever(speed_sp = direction * reversing_speed)
         rightMotor.run_forever(speed_sp = - direction * reversing_speed)
-        # print(gs.value())
         sleep(0.005)
 
     motor_stop()
     sleep(0.1)
-    # print("*",gs.value())
 
     head_dir = to_dir
     return 1
@@ -143,23 +105,26 @@ def us_turn(to_dir, turning_speed = 250):
         distance = pos[0]
     else:
         distance = pos[1]
-    # print(distance)
     if distance == 0: return 0
     start = sonarMotor.position
-    # print("start:", start)
 
     sonarMotor.run_to_abs_pos(position_sp = distance, speed_sp = turning_speed, stop_action = "brake")
 
     sleep(1.5)
 
     finish = sonarMotor.position
-    # print("finish:",finish)
 
     us_dir = to_dir
     return 1
 
 def is_wall(dir):
     # return -1 has wall return 0 have a branch
+    if dir == 'l' or dir == 'r':
+        us_turn(90)
+        # us the sum of the sensor to detect the walls on the both side
+        # 1000 should be modify
+        if usL.value()+usR.value()*10<1000:
+            return -1
     if   dir == 'l':
         us_turn(90)
         dis = usL.value()
@@ -174,79 +139,6 @@ def is_wall(dir):
         return -1
     return 0
 
-"""
-<!-- abandoned method -->
-def found_new_node():
-    global lastFrontDis, branch_right, branch_left, branch_front, wall_distance, head_dir
-
-    # to get the walls around
-    if usR.value()>wall_distance:
-        branch_right =0
-    else:
-        branch_right = -1
-    if usL.value()*10>wall_distance:
-        branch_left =0
-    else:
-        branch_left = -1
-    us_turn(0)
-    # detecting the distance at front
-    if usL.value()*10>wall_distance:
-        branch_front =  0
-    else:
-        branch_front = -1
-
-    # refresh the cordinate of this position
-    print ('lastFrontDis ', lastFrontDis, 'usl value', usL.value())
-    refresh_cor(lastFrontDis-(usL.value()*10))
-    # get all the walls info into the tree
-    if tree.find_node(x,y)=='NULL':
-        this_node= tree.add_node(x,y,branch_front,branch_left,branch_right,head_dir)
-    else :
-        this_node = tree.find_node(x,y)
-    # turn to the new direction that computer decide
-    turn(this_node.move_to(head_dir))
-    # refresh this branch length to the end
-    lastFrontDis = usL.value()*10
-
-    # back to the side mode of right sonar
-    us_turn(90)
-
-print("finished initialisation")
-# inital the first node
-if lastFrontDis > wall_distance:
-    branch_front = 0
-else:
-    branch_front = -1
-us_turn(90)
-if usR.value()>wall_distance:
-    branch_right = 0
-else :
-    branch_right = -1
-if usL.value()>wall_distance:
-    branch_left = 0
-else :
-    branch_left = -1
-# get all the walls info into the tree
-if tree.find_node(x,y)=='NULL':
-    this_node= tree.add_node(x,y,branch_front,branch_left,branch_right,head_dir)
-else :
-    this_node = tree.find_node(x,y)
-# turn to the new direction that computer decide
-head_dir=this_node.move_to(head_dir)
-turn(head_dir)
-print("initialized first node")
-"""
-
-
-
-
-
-# test is_wall
-# print("left has",is_wall('l'))
-# print("right has",is_wall('r'))
-# print("front has",is_wall('f'))
-
-
 # test cor_move
 def cor_move(head_dir,modfiyable=0):
     global before_distance, is_color
@@ -257,15 +149,16 @@ def cor_move(head_dir,modfiyable=0):
     before_distance = rightMotor.position
     to_distance = rightMotor.position-unit_length
     print("to_distance = ",to_distance,"unit_length=",unit_length,"usvalue",usL.value())
-    """if to_distance < 50:
-        to_distance = 50
-        print("to_distance = ",to_distance)"""
     mdify_status= 0
     if modfiyable ==1:
         # only modify while has wall on right
         for i in range(0,10):
             # base on the distance to the wall to modify its track
-            sleep(0.1) # at the branc to modify
+            sleep(0.1) # at the branch could be modify
+            if usL.value()<60:
+                # too close to the wall
+                break
+            # 80 and 120 should be modify
             if usR.value()*10 <80:
                 if modify_status !=1:
                     modify_status =1
@@ -280,6 +173,7 @@ def cor_move(head_dir,modfiyable=0):
                 if modify_status !=3:
                     modify_status =3
                     motor_move()
+    # ordinary move forward
     motor_move()
     while rightMotor.position>to_distance and (not btn.any()) and is_color==0 and usL.value()>60:
         sleep(0.01)
@@ -299,7 +193,11 @@ def cor_move(head_dir,modfiyable=0):
 
 
 if __name__ == '__main__':
-    print("finished initialisation")
+    print("finished initialisation -- Press a Key to start")
+    while not btn.any():
+        sleep(0.1)
+
+    # main method
     while (not btn.any()) and  is_color== 0:
         """ordinary movement by cor"""
         if tree.find_node(x,y)=='NULL':
@@ -337,9 +235,10 @@ if __name__ == '__main__':
     #refresh the cordinate by a low level func so it won't move
     refresh_cor(head_dir)
 
+    # reset the is_color value so it could move back
     is_color = 0
 
-    # revise its route
+    """ revise its route """
     print("now is retreat it's route")
     while (x!=0 or y!=0) and not btn.any() :
         this_node = tree.find_node(x,y)
