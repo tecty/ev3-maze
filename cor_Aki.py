@@ -163,12 +163,12 @@ def cor_move(head_dir,modfiyable=0):
                 if mdify_status !=1:
                     mdify_status =1
                     print("modify to turn left")
-                    motor_move(250,260)
+                    motor_move(250,270)
             elif usR.value()*10 > 120:
                 if mdify_status !=2:
                     mdify_status =2
                     print("modify to turn right")
-                    motor_move(260,250)
+                    motor_move(270,250)
             else :
                 if mdify_status !=3:
                     mdify_status =3
