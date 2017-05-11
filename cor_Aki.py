@@ -160,17 +160,17 @@ def cor_move(head_dir,modfiyable=0):
                 break
             # 80 and 120 should be modify
             if usR.value()*10 <80:
-                if modify_status !=1:
+                if mdify_status !=1:
                     mdify_status =1
                     print("modify to turn left")
                     motor_move(250,260)
             elif usR.value()*10 > 120:
-                if modify_status !=2:
+                if mdify_status !=2:
                     mdify_status =2
                     print("modify to turn right")
                     motor_move(260,250)
             else :
-                if modify_status !=3:
+                if mdify_status !=3:
                     mdify_status =3
                     motor_move()
     # ordinary move forward
