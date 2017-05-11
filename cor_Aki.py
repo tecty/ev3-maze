@@ -194,9 +194,6 @@ def cor_move(head_dir,modfiyable=0):
 
 if __name__ == '__main__':
     print("finished initialisation -- Press a Key to start")
-    while not btn.any():
-        sleep(0.1)
-
     # main method
     while (not btn.any()) and  is_color== 0:
         """ordinary movement by cor"""
