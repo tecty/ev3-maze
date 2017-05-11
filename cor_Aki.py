@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 from time import sleep
 from ev3dev.ev3 import *
 from tree_list import *

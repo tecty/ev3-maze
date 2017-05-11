@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from cor_Aki import *
     print("finished initialisation -- Press a Key to start")
     while not btn.any():
