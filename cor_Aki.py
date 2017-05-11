@@ -35,7 +35,7 @@ tree = Tree()
 # length of one unit
 unit_length=830
 # theshold of detecting a wall
-wall_distance= 200
+wall_distance= 280
 # the color of the can 5 is red
 can_color =5
 
