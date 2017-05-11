@@ -123,7 +123,7 @@ def is_wall(dir):
         us_turn(90)
         # us the sum of the sensor to detect the walls on the both side
         # 1000 should be modify
-        if usL.value()+usR.value()*10<1000:
+        if usL.value()+usR.value()*10<340:
             return -1
     if   dir == 'l':
         us_turn(90)
@@ -159,12 +159,12 @@ def cor_move(head_dir,modfiyable=0):
                 # too close to the wall
                 break
             # 80 and 120 should be modify
-            if usR.value()*10 <80:
+            if usR.value()*10 <100:
                 if mdify_status !=1:
                     mdify_status =1
                     print("modify to turn left")
                     motor_move(250,270)
-            elif usR.value()*10 > 120:
+            elif usR.value()*10 > 140:
                 if mdify_status !=2:
                     mdify_status =2
                     print("modify to turn right")
