@@ -4,17 +4,16 @@ class Tree:
     """docstring for tree."""
     def __init__(self):
         self.nodes=list()
-    def add_node(self,x,y,wall_list,head_dir):
+    def add_node(self,x,y,front,left,right,head_dir):
         # input left,right is 0(has a way) or -1(wall)
-        # wall_list : [0] - front, [1] - left, [2] - right
         if head_dir ==0:
-            this_node= Node(x,y,wall_list[0],wall_list[2],0,wall_list[1])
+            this_node= Node(x,y,front,right,0,left)
         if head_dir ==90:
-            this_node= Node(x,y,wall_list[1],wall_list[0],wall_list[2],0)
+            this_node= Node(x,y,left,front,right,0)
         if head_dir ==180:
-            this_node= Node(x,y,0,wall_list[1],wall_list[0],wall_list[2])
+            this_node= Node(x,y,0,left,front,right)
         if head_dir ==270:
-            this_node= Node(x,y,wall_list[2],wall_list[0],wall_list[1],0)
+            this_node= Node(x,y,right,front,left,0)
         self.nodes.append(this_node)
         return this_node
     def find_node(self,x,y):
@@ -91,7 +90,7 @@ if __name__ == '__main__':
     tree = Tree()
     head_dir = 0
     if tree.find_node(x,y)=='NULL':
-        this_node= tree.add_node(0,0,[0,-1,-1],head_dir)
+        this_node= tree.add_node(0,0,0,-1,-1,head_dir)
     else :
         this_node = tree.find_node(0,0)
     head_dir =this_node.move_to(0)
@@ -100,17 +99,17 @@ if __name__ == '__main__':
     cor_move(head_dir)
 
     print ("head_dir = ",head_dir)
-    this_node= tree.add_node(x,y,[-1,-1,0],head_dir)
+    this_node= tree.add_node(x,y,-1,-1,0,head_dir)
     head_dir =this_node.move_to(head_dir)
     cor_move(head_dir)
     this_node.print_node()
     print ("next dir is",head_dir)
-    this_node= tree.add_node(x,y,[-1,-1,0],head_dir)
+    this_node= tree.add_node(x,y,-1,-1,0,head_dir)
     head_dir =this_node.move_to(head_dir)
     cor_move(head_dir)
     this_node.print_node()
     print ("next dir is",head_dir)
-    this_node= tree.add_node(x,y,[-1,-1,-1],head_dir)
+    this_node= tree.add_node(x,y,-1,-1,-1,head_dir)
     head_dir =this_node.move_to(head_dir)
     cor_move(head_dir)
     this_node.print_node()

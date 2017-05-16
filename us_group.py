@@ -9,6 +9,8 @@ class us_group(self):
         # assign mode, 0 is forward, 1 is backward
         self.__mode= 0
 
+        # the status of the motor dir
+        self.motor_dir =0
         # critical values of detecting walls
         self.sonar_sum = 340
         self.wall_distance  = 280
@@ -21,6 +23,13 @@ class us_group(self):
 
     def turn(self,to_dir):
         pos = [1,-89]
+        if self.motor_dir!=to_dir:
+            self.motor_dir = to_dir
+        else:
+            # success turning the motor because motor was at the site it need to be
+            return 1
+
+        """ turn to the given position """    
         if to_dir == 0:
             distance = pos[0]
         elif to_dir == 90:
@@ -73,6 +82,16 @@ class us_group(self):
             elif self.usR.value()*10<100:
                 return -1
         return 0
+    def is_front(self,front_dis=60):
+        # detect whether is a wall at front
+
+        self.turn(0)
+        if self.usL.value()<front_dis:
+            return 1
+        else:
+            return 0
+
+
 
     @property
     def mode(self):
