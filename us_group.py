@@ -92,7 +92,7 @@ class us_group(self):
             return 0
 
 
-"""unneccessary code"""
+    """unneccessary code"""
     @property
     def mode(self):
         return self.__mode
