@@ -117,48 +117,26 @@ def cor_move(head_dir):
     us_turn(0)
     # record the position before it move forward
     before_distance = rightMotor.position
-    to_distance = rightMotor.position-unit_length
+    to_distance = rightMotor.position+unit_length
     print("to_distance = ",to_distance,"unit_length=",unit_length,"usvalue",usL.value())
     mdify_status= 0
-    if modfiyable ==1:
-        # only modify while has wall on right
-        for i in range(0,10):
-            # base on the distance to the wall to modify its track
-            sleep(0.1) # at the branch could be modify
-
-            if usg.is_front():
-                # detect the wall at front
-                break
-
-            """need to redefine"""
-            if usg.modify_dir() == -1:
-                if mdify_status !=1:
-                    mdify_status =1
-                    print("modify to turn left")
-                    motor_move(default_sp,default_sp+50)
-            elif usg.modify_dir()==1:
-                if mdify_status !=2:
-                    mdify_status =2
-                    print("modify to turn right")
-                    motor_move(default_sp+50,default_sp)
-            else :
-                # couldn't modify or its moving forward
-                if mdify_status !=3:
-                    mdify_status =3
-                    motor_move()
-    # ordinary move forward
-    motor_move()
-    while rightMotor.position>to
-        if cs.value()== can_color:
-            motor_stop()
-            sleep(0.1)
-            if cs.value()== can_color:
-                is_color=1
-            else:
+    while usg.is_front()!=1 and rightMotor.position< to_distance:
+        # detect the wall at front
+        if usg.modify_dir() == -1:
+            if mdify_status !=1:
+                mdify_status =1
+                print("modify to turn left")
+                motor_move(default_sp,default_sp+50)
+        elif usg.modify_dir()==1:
+            if mdify_status !=2:
+                mdify_status =2
+                print("modify to turn right")
+                motor_move(default_sp+50,default_sp)
+        else :
+            # couldn't modify or its moving forward
+            if mdify_status !=3:
+                mdify_status =3
                 motor_move()
-        else:
-            motor_move()
-
     motor_stop()
 
 
