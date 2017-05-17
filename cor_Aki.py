@@ -156,7 +156,13 @@ if __name__ == '__main__':
         turn(to_dir)
         cor_move(head_dir,-is_wall('r'))
 
+
     """code after found the can"""
+    print("find the red can")
+    # sound the alarm of found the can
+    Sound.tone([(1000, 500, 500)] * 3)
+    # set the node for the can at.
+    if tree.find_node(x,y):
         this_node= tree.add_node(x,y,[-1,-1,-1],head_dir)
     else :
         this_node = tree.find_node(x,y)
@@ -177,71 +183,7 @@ if __name__ == '__main__':
     refresh_cor(head_dir)
 
     # reset the is_color value so it could move back
-    is_color = 0    while rightMotor.position>to
-        if cs.value()== can_color:
-            motor_stop()
-            sleep(0.1)
-            if cs.value()== can_color:
-                is_color=1
-            else:
-                motor_move()
-        else:
-            motor_move()
-
-    motor_stop()
-
-
-
-
-if __name__ == '__main__':
-    print("finished initialisation -- Press a Key to start")
-    # main method
-    while (not btn.any()) and  is_color== 0:
-        """ordinary movement by cor"""
-        if tree.find_node(x,y)=='NULL':
-            this_node= tree.add_node(x,y,usg.is_wall(),head_dir)
-        else :
-            this_node = tree.find_node(x,y)
-        this_node.print_node()
-        to_dir =this_node.move_to(head_dir)
-        turn(to_dir)
-        cor_move(head_dir,-is_wall('r'))
-
-    """code after found the can"""
-    while rightMotor.position>to
-        if cs.value()== can_color:
-            motor_stop()
-            sleep(0.1)
-            if cs.value()== can_color:
-                is_color=1
-            else:
-                motor_move()
-        else:
-            motor_move()
-
-    motor_stop()
-
-
-
-
-if __name__ == '__main__':
-    print("finished initialisation -- Press a Key to start")
-    # main method
-    while (not btn.any()) and  is_color== 0:
-        """ordinary movement by cor"""
-        if tree.find_node(x,y)=='NULL':
-            this_node= tree.add_node(x,y,usg.is_wall(),head_dir)
-        else :
-            this_node = tree.find_node(x,y)
-        this_node.print_node()
-        to_dir =this_node.move_to(head_dir)
-        turn(to_dir)
-        cor_move(head_dir,-is_wall('r'))
-
-    """code after found the can"""
-
-
-
+    is_color = 0
     """ revise its route """
     print("now is retreat it's route")
     while (x!=0 or y!=0) and not btn.any() :
