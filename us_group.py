@@ -11,10 +11,11 @@ class us_group:
 
         # the status of the motor dir
         self.motor_dir =0
+        """These values should be modify"""
         # critical values of detecting walls
-        self.sonar_sum = 340
-        self.wall_distance  = 280
-        self.front_wall_dis = 280
+        self.sonar_sum = 240
+        self.wall_distance  = 180
+        self.front_wall_dis = 300
         # assign motor
         self.motor  = MediumMotor(OUTPUT_D);	assert self.motor.connected
         # assign sensor
@@ -46,19 +47,13 @@ class us_group:
 
     def is_wall(self):
         # detecting front
-        self.turn(0)
-        front = self.usL.value()
+        front = -self.is_front()
         # detecting left and right
         self.turn(90)
         left  = self.usL.value()
         right = self.usR.value()*10
 
         """calculate the return result"""
-        # front
-        if front < self.front_wall_dis:
-            front = -1
-        else:
-            front =  0
         # left and right
         if left + right < self.sonar_sum:
             left  = -1
@@ -83,11 +78,10 @@ class us_group:
             elif self.usR.value()*10<100:
                 return -1
         return 0
-    def is_front(self,front_dis=60):
+    def is_front(self):
         # detect whether is a wall at front
-
         self.turn(0)
-        if self.usL.value()<front_dis:
+        if self.usL.value()<self.front_wall_dis:
             return 1
         else:
             return 0
@@ -111,20 +105,18 @@ if __name__ == '__main__':
     while True:
         test_function = input("Testing function name(turn/is_wall/modify_dir): ")
         if test_function == "turn":
-            while True:
+            while not btn.any():
                 to_dir = input("Direction:(0/90)")
                 if to_dir == "0" or "90":
                     usg.turn(to_dir)
-                    next_turn = input("Test another direction?(y/n)")
-                    if(next_turn == "n" or "N"):
-                        break
                 else:
                     print("Wrong direction")
+                sleep(0.5)
         elif test_function ==  "is_wall":
             while not btn.any():
                 d = usg.is_wall()
                 print("Front:",d[0],"Left:",d[1],"Right:",d[2])
-                sleep(0.1)
+                sleep(1)
         elif test_function == "modify_dir":
             while not btn.any():
                 move_dir = usg.modify_dir()
@@ -134,9 +126,6 @@ if __name__ == '__main__':
                     print("Move left")
                 else:
                     print("No move")
-                sleep(0.1)
+                sleep(1)
         else:
             print("No such function exist")
-        test = input("Test other function?(y/n)")
-        if test == "n" or "N":
-            break
