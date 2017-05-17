@@ -42,6 +42,7 @@ class us_group:
         # sleep till the motor is not moving
         while self.motor.state:
             sleep(0.01)
+        sleep(0.2)
 
     def is_wall(self):
         # detecting front
@@ -50,7 +51,7 @@ class us_group:
         # detecting left and right
         self.turn(90)
         left  = self.usL.value()
-        right = self.usR.value()
+        right = self.usR.value()*10
 
         """calculate the return result"""
         # front
@@ -74,7 +75,7 @@ class us_group:
         return [front,left,right]
     def modify_dir(self):
         """move to right is 1, move to left is -1"""
-        if self.usR.value()<wall_distance:
+        if self.usR.value()<self.wall_distance:
             # now have wall on its right
             """ Values should be modify"""
             if self.usR.value()*10>140:
@@ -106,9 +107,10 @@ if __name__ == '__main__':
     btn = Button()
 
 
+
     while True:
         test_function = input("Testing function name(turn/is_wall/modify_dir): ")
-        if test_fucntion == "turn":
+        if test_function == "turn":
             while True:
                 to_dir = input("Direction:(0/90)")
                 if to_dir == "0" or "90":
