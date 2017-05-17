@@ -58,7 +58,7 @@ def catch_can():
     liftMotor.run_forever(speed_sp =default_sp)
     sleep(0.5)
     liftMotor.stop
-    liftMotor.run_forever(speed_sp=0)
+    liftMotor.run_forever(speed_sp=50)
 
 def refresh_cor(head_dir):
     """new method to refresh_cor"""
