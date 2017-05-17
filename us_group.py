@@ -16,7 +16,7 @@ class us_group:
         self.wall_distance  = 280
         self.front_wall_dis = 280
         # assign motor
-        self.motor  = MediumMotor(OUTPUT_D)
+        self.motor  = MediumMotor(OUTPUT_D);	assert motor.connected
         # assign sensor
         self.usL = UltrasonicSensor(INPUT_2);	assert usL.connected
         self.usR = UltrasonicSensor(INPUT_1);	assert usR.connected
@@ -104,7 +104,9 @@ if __name__ == '__main__':
     """unit test for us_group"""
     usg = us_group()
     btn = Button()
-    while True:
+
+
+    """while True:
         test_function = input("Testing function name(turn/is_wall/modify_dir): ")
         if test_fucntion == "turn":
             while True:
@@ -135,4 +137,4 @@ if __name__ == '__main__':
             print("No such function exist")
         test = input("Test other function?(y/n)")
         if test == "n" or "N":
-            break
+            break"""
