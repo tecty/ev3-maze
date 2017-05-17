@@ -37,15 +37,17 @@ tree = Tree()
 unit_length=830
 # the color of the can 5 is red
 can_color =5
+# speed that motor run in default
+default_sp=250
 
 """defined in us_group"""
 # theshold of detecting a wall
 # wall_distance= 280
 
 
-def motor_move(leftSpeed=250,rightSpeed=250):
-	leftMotor.run_forever(speed_sp=-leftSpeed)
-	rightMotor.run_forever(speed_sp=-rightSpeed)
+def motor_move(leftSpeed=default_sp,rightSpeed=default_sp):
+	leftMotor.run_forever(speed_sp=leftSpeed)
+	rightMotor.run_forever(speed_sp=rightSpeed)
 
 def motor_stop():
     leftMotor.stop()
@@ -63,7 +65,7 @@ def refresh_cor(head_dir):
     elif head_dir==270:
         x-=1
 
-def turn(to_dir, turning_speed = 250, reversing_speed = 30):
+def turn(to_dir, turning_speed = default_sp, reversing_speed = 30):
     global head_dir
     direction = 1
     angle = to_dir - head_dir
@@ -127,12 +129,12 @@ def cor_move(head_dir):
                 if mdify_status !=1:
                     mdify_status =1
                     print("modify to turn left")
-                    motor_move(250,300)
+                    motor_move(default_sp,default_sp+50)
             elif usg.modify_dir()==1:
                 if mdify_status !=2:
                     mdify_status =2
                     print("modify to turn right")
-                    motor_move(300,250)
+                    motor_move(default_sp+50,default_sp)
             else :
                 # couldn't modify or its moving forward
                 if mdify_status !=3:

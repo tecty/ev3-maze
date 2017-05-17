@@ -2,7 +2,7 @@ from ev3dev.ev3 import *
 from time import sleep
 
 
-turnMotor = LargeMotor(OUTPUT_D)
+turnMotor = LargeMotor(OUTPUT_A)
 print("finished initialisation")
 turnMotor.run_forever(speed_sp=-300)
 sleep(0.5)

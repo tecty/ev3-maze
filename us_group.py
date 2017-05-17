@@ -18,8 +18,8 @@ class us_group(self):
         # assign motor
         self.motor  = MediumMotor(OUTPUT_D)
         # assign sensor
-        usR = UltrasonicSensor(INPUT_1);	assert usR.connected
-        usL = UltrasonicSensor(INPUT_2);	assert usL.connected
+        self.usR = UltrasonicSensor(INPUT_1);	assert usR.connected
+        self.usL = UltrasonicSensor(INPUT_2);	assert usL.connected
 
     def turn(self,to_dir):
         pos = [1,-89]
@@ -92,7 +92,7 @@ class us_group(self):
             return 0
 
 
-
+"""unneccessary code"""
     @property
     def mode(self):
         return self.__mode
