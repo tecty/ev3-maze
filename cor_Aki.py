@@ -3,9 +3,9 @@ from time import sleep
 from ev3dev.ev3 import *
 from tree_list import *
 from us_group import *
-leftMotor  = LargeMotor(OUTPUT_B)
-rightMotor = LargeMotor(OUTPUT_C)
-# liftMotor  = LargeMotor(OUTPUT_D) #Unconnected
+liftMotor  = LargeMotor(OUTPUT_A); assert liftMotor.connected
+leftMotor  = LargeMotor(OUTPUT_B); assert leftMotor.connected
+rightMotor = LargeMotor(OUTPUT_C); assert rightMotor.connected
 
 gs  = GyroSensor(INPUT_4);	assert gs.connected
 cs  = ColorSensor(INPUT_3);	assert cs.connected
@@ -53,6 +53,13 @@ def motor_stop():
     leftMotor.stop()
     rightMotor.stop()
     motor_move(0,0)
+
+def catch_can():
+    liftMotor.run_forever(speed_sp =default_sp)
+    sleep(0.5)
+    liftMotor.stop
+    liftMotor.run_forever(speed_sp=0)
+
 def refresh_cor(head_dir):
     """new method to refresh_cor"""
     global x,y
@@ -64,7 +71,6 @@ def refresh_cor(head_dir):
         y-=1
     elif head_dir==270:
         x-=1
-
 def turn(to_dir, turning_speed = default_sp, reversing_speed = 30):
     global head_dir
     direction = 1
