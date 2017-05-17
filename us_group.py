@@ -29,7 +29,7 @@ class us_group(self):
             # success turning the motor because motor was at the site it need to be
             return 1
 
-        """ turn to the given position """    
+        """ turn to the given position """
         if to_dir == 0:
             distance = pos[0]
         elif to_dir == 90:
@@ -102,3 +102,37 @@ class us_group(self):
 
 if __name__ == '__main__':
     """unit test for us_group"""
+    usg = us_group()
+    btn = Button()
+    while True:
+        test_function = input("Testing function name(turn/is_wall/modify_dir): ")
+        if test_fucntion == "turn":
+            while True:
+                to_dir = input("Direction:(0/90)")
+                if to_dir == "0" or "90":
+                    usg.turn(to_dir)
+                    next_turn = input("Test another direction?(y/n)")
+                    if(next_turn == "n" or "N"):
+                        break
+                else:
+                    print("Wrong direction")
+        elif test_function ==  "is_wall":
+            while not btn.any():
+                d = usg.is_wall()
+                print("Front:",d[0],"Left:",d[1],"Right:",d[2])
+                sleep(0.1)
+        elif test_function == "modify_dir":
+            while not btn.any():
+                move_dir = usg.modify_dir()
+                if move_dir == 1:
+                    print("Move right")
+                elif move_dir == -1:
+                    print("Move left")
+                else:
+                    print("No move")
+                sleep(0.1)
+        else:
+            print("No such function exist")
+        test = input("Test other function?(y/n)")
+        if test == "n" or "N":
+            break
