@@ -2,7 +2,7 @@
 from time import sleep
 from ev3dev.ev3 import *
 
-class us_group(self):
+class us_group:
     """docstring for us_group."""
     def __init__(self):
         super(us_group, self).__init__()
