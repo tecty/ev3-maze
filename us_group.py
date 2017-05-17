@@ -18,8 +18,8 @@ class us_group:
         # assign motor
         self.motor  = MediumMotor(OUTPUT_D)
         # assign sensor
-        self.usR = UltrasonicSensor(INPUT_1);	assert usR.connected
         self.usL = UltrasonicSensor(INPUT_2);	assert usL.connected
+        self.usR = UltrasonicSensor(INPUT_1);	assert usR.connected
 
     def turn(self,to_dir):
         pos = [1,-89]
