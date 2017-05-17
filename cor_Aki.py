@@ -157,7 +157,7 @@ if __name__ == '__main__':
         cor_move(head_dir,-is_wall('r'))
 
     """code after found the can"""
-        this_node= tree.add_node(x,y,-1,-1,-1,head_dir)
+        this_node= tree.add_node(x,y,[-1,-1,-1],head_dir)
     else :
         this_node = tree.find_node(x,y)
     this_node.print_node()
