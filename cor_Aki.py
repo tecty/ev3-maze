@@ -114,11 +114,10 @@ def cor_move(head_dir):
     global before_distance, is_color
     # refresh the global cordinate by its head direction
     refresh_cor(head_dir)
-    us_turn(0)
     # record the position before it move forward
     before_distance = rightMotor.position
     to_distance = rightMotor.position+unit_length
-    print("to_distance = ",to_distance,"unit_length=",unit_length,"usvalue",usL.value())
+    print("to_distance = ",to_distance,"unit_length=",unit_length)
     mdify_status= 0
     while usg.is_front()!=1 and rightMotor.position< to_distance:
         # detect the wall at front

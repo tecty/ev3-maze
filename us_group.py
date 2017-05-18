@@ -10,11 +10,11 @@ class us_group:
         self.__mode= 0
 
         # the status of the motor dir
-        self.motor_dir =0
+        self.motor_dir =34
         """These values should be modify"""
         # critical values of detecting walls
-        self.sonar_sum = 240
-        self.wall_distance  = 180
+        self.sonar_sum = 280
+        self.wall_distance  = 250
         self.front_wall_dis = 300
         # assign motor
         self.motor  = MediumMotor(OUTPUT_D);	assert self.motor.connected
