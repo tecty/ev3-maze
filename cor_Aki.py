@@ -199,4 +199,5 @@ if __name__ == '__main__':
     print("finally here is:",x,",",y)
 
     motor_stop()
+    liftMotor.stop()
     print("end of the programme")

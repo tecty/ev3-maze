@@ -43,7 +43,7 @@ class us_group:
         # sleep till the motor is not moving
         while self.motor.state:
             sleep(0.01)
-        sleep(0.2)
+        sleep(0.1)
 
     def is_wall(self):
         # detecting front
