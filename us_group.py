@@ -70,7 +70,7 @@ class us_group:
         return [front,left,right]
     def modify_dir(self):
         """move to right is 1, move to left is -1"""
-        if self.usR.value()<self.wall_distance:
+        if self.usR.value()*10<self.wall_distance:
             # now have wall on its right
             """ Values should be modify"""
             if self.usR.value()*10>140:
