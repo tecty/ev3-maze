@@ -124,7 +124,7 @@ def cor_move(head_dir):
     to_distance = rightMotor.position+unit_length
     print("to_distance = ",to_distance,"unit_length=",unit_length)
     mdify_status= 0
-    while usg.is_front()!=1 and rightMotor.position< to_distance:
+    while usg.is_front()!=1 and rightMotor.position< to_distance and is_color == 0:
         # detect the wall at front
         if usg.modify_dir() == -1:
             if mdify_status !=1:
@@ -145,6 +145,11 @@ def cor_move(head_dir):
             if mdify_status !=3:
                 mdify_status =3
                 motor_move()
+        if cs.value()== can_color:
+            motor_stop()
+            sleep(0.1)
+            if cs.value()== can_color:
+                is_color=1
     motor_stop()
 
 
