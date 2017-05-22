@@ -91,6 +91,7 @@ def turn(to_dir, turning_speed = default_sp, reversing_speed = 30):
     if angle == 0: return 0
     gs.mode = 'GYRO-RATE'
     gs.mode = 'GYRO-ANG'
+    
 
     #make a turn
     leftMotor.run_forever(speed_sp = direction * turning_speed *(-1))
@@ -156,8 +157,10 @@ if __name__ == '__main__':
             this_node = tree.find_node(x,y)
         this_node.print_node()
         to_dir =this_node.move_to(head_dir)
+        print("next dir is ", to_dir,"head dir",head_dir)
         turn(to_dir)
-        cor_move(head_dir,-is_wall('r'))
+        print("next dir is ", to_dir,"head dir",head_dir)
+        cor_move(head_dir)
 
 
     """code after found the can"""
