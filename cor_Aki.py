@@ -131,14 +131,14 @@ def cor_move(head_dir):
                 mdify_status =1
                 print("modify to turn left")
                 motor_move(default_sp,default_sp+100)
-                sleep(0.2)
+                sleep(0.1)
                 motor_move()
         elif usg.modify_dir()==1:
             if mdify_status !=2:
                 mdify_status =2
                 print("modify to turn right")
                 motor_move(default_sp+100,default_sp)
-                sleep(0.2)
+                sleep(0.1)
                 motor_move()
         else :
             # couldn't modify or its moving forward
