@@ -176,6 +176,12 @@ if __name__ == '__main__':
     print("find the red can")
     # sound the alarm of found the can
     Sound.tone([(1000, 500, 500)] * 3)
+
+    # reach the can
+    motor_move()
+    sleep(0.3)
+    catch_can()
+
     # set the node for the can at.
     if tree.find_node(x,y):
         this_node= tree.add_node(x,y,[-1,-1,-1],head_dir)
@@ -214,5 +220,5 @@ if __name__ == '__main__':
     print("finally here is:",x,",",y)
 
     motor_stop()
-    liftMotor.stop()
+    stop_catch()
     print("end of the programme")

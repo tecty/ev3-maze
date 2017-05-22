@@ -211,6 +211,8 @@ if __name__ == '__main__':
     print("find the red can")
     # sound the alarm of found the can
     Sound.tone([(1000, 500, 500)] * 3)
+    motor_move()
+    sleep(0.3)
     # set the node for the can at.
     if tree.find_node(x,y)=='NULL':
         this_node= tree.add_node(x,y,-1,-1,-1,head_dir)
