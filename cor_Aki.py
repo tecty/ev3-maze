@@ -181,6 +181,7 @@ if __name__ == '__main__':
     # reach the can
     motor_move()
     sleep(0.3)
+    motor_stop()
     catch_can()
 
     # set the node for the can at.
@@ -206,6 +207,7 @@ if __name__ == '__main__':
 
     # reset the is_color value so it could move back
     is_color = 0
+    
     """ revise its route """
     print("now is retreat it's route")
     while (x!=0 or y!=0) and not btn.any() :

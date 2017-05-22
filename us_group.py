@@ -15,7 +15,7 @@ class us_group:
         # critical values of detecting walls
         self.sonar_sum = 280
         self.wall_distance  = 250
-        self.front_wall_dis = 180
+        self.front_wall_dis = 220
         # assign motor
         self.motor  = MediumMotor(OUTPUT_D);	assert self.motor.connected
         # assign sensor
