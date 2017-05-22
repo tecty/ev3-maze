@@ -91,11 +91,11 @@ def turn(to_dir, turning_speed = default_sp, reversing_speed = 30):
     if angle == 0: return 0
     gs.mode = 'GYRO-RATE'
     gs.mode = 'GYRO-ANG'
-    
+
 
     #make a turn
-    leftMotor.run_forever(speed_sp = direction * turning_speed *(-1))
-    rightMotor.run_forever(speed_sp = - direction * turning_speed *(-1))
+    leftMotor.run_forever(speed_sp = direction * turning_speed )
+    rightMotor.run_forever(speed_sp = - direction * turning_speed )
 
     while gs.value() * direction < angle:
         sleep(0.005)
@@ -104,8 +104,8 @@ def turn(to_dir, turning_speed = default_sp, reversing_speed = 30):
     sleep(0.1)
 
     while gs.value() * direction > angle:
-        leftMotor.run_forever(speed_sp = direction * reversing_speed)
-        rightMotor.run_forever(speed_sp = - direction * reversing_speed)
+        leftMotor.run_forever(speed_sp = - direction * reversing_speed)
+        rightMotor.run_forever(speed_sp = direction * reversing_speed)
         sleep(0.005)
 
     motor_stop()
