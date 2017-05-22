@@ -82,7 +82,13 @@ class us_group:
         # detect whether is a wall at front
         self.turn(0)
         if self.usL.value()<self.front_wall_dis:
-            return 1
+            sleep(0.1)
+            # double check the front wall
+            if self.usL.value()<self.front_wall_dis:
+                print("front has wall")
+                return 1
+            else:
+                return 0
         else:
             return 0
 
