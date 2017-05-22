@@ -116,7 +116,7 @@ def turn(to_dir, turning_speed = default_sp, reversing_speed = 30):
     return 1
 
 # test cor_move
-def cor_move(head_dir):
+def cor_move(head_dir,is_catch =0):
     global before_distance, is_color
     # refresh the global cordinate by its head direction
     refresh_cor(head_dir)
@@ -146,7 +146,7 @@ def cor_move(head_dir):
             if mdify_status !=3:
                 mdify_status =3
                 motor_move()
-        if cs.value()== can_color:
+        if cs.value()== can_color && is_catch ==0:
             motor_stop()
             sleep(0.1)
             if cs.value()== can_color:
@@ -207,7 +207,7 @@ if __name__ == '__main__':
 
     # reset the is_color value so it could move back
     is_color = 0
-    
+
     """ revise its route """
     print("now is retreat it's route")
     while (x!=0 or y!=0) and not btn.any() :
@@ -217,7 +217,7 @@ if __name__ == '__main__':
         turn(to_dir)
         print ("here is",x,",",y)
 
-        cor_move(head_dir)
+        cor_move(head_dir,1)
         print ("next dir is",head_dir)
 
     print("finally here is:",x,",",y)
