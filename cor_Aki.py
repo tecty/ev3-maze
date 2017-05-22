@@ -46,8 +46,8 @@ default_sp=250
 
 
 def motor_move(leftSpeed=default_sp,rightSpeed=default_sp):
-	rightMotor.run_forever(speed_sp=rightSpeed)
     leftMotor.run_forever(speed_sp=leftSpeed)
+    rightMotor.run_forever(speed_sp=rightSpeed)
 
 def motor_stop():
     leftMotor.stop()
