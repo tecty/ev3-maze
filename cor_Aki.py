@@ -141,6 +141,7 @@ def cor_move(head_dir):
             if mdify_status !=3:
                 mdify_status =3
                 motor_move()
+        print("gs value has ",gs.value())
     motor_stop()
 
 
