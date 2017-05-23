@@ -169,6 +169,7 @@ class us_group:
             else :
                 diff =pow(-1,i)* (accur_val[i] - self.last_distance[i])
                 # calculate the angle would be modify
+                print("diff new is ",diff)
                 self.angle = asin(diff/420)*60
                 print("Angle would be modify is", self.angle);
                 # break this loop so the angle wouldn't calculate twice
