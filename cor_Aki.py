@@ -34,7 +34,8 @@ tree = Tree()
 
 """config part these values should be modify """
 # length of one unit
-unit_length=830 # for clancy
+# unit_length=830 # for clancy in normal speed
+unit_length=1200 # for clancy in normal speed
 # unit_length=870 # for E4
 # the color of the can 5 is red
 can_color =5
@@ -165,7 +166,7 @@ def modify_angle():
 
         # start modify the angle
         motor_move(direction * 30,-direction * 30)
-        while abs(gs.value()) < abs(angle):
+        while abs(gs.value()) < abs(usg.angle):
             sleep(0.005)
         # end of this modify
         motor_stop()
