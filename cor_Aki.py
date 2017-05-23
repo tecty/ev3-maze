@@ -126,20 +126,23 @@ def approach_wall():
     elif wall_dir == 1:
         # wall is on the right
         to_dir = head_dir+90
-
-
     elif wall_dir == -1:
         # wall is on the left
         to_dir = head_dir-90
+
+
     """special case of to_dir"""
     if to_dir==-90:
         to_dir =270
     elif to_dir == 360:
         to_dir = 0
+    print("trying to trun to ", to_dir)
     # turn to that direction that have a wall
     turn(to_dir)
     # set the us sensor to the front
     usg.turn(0)
+
+    print(" trying to approach the wall")
 
     """ Values need to be modify """
     while usg.usL.value() < 160:
