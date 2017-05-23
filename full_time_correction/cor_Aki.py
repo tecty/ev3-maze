@@ -34,7 +34,7 @@ tree = Tree()
 
 """config part these values should be modify """
 # length of one unit
-unit_length=830 # for clancy
+ unit_length=830 # for clancy
 # unit_length=870 # for E4
 # the color of the can 5 is red
 can_color =5
@@ -64,7 +64,7 @@ def stop_catch():
     liftMotor.stop()
     liftMotor.run_forever(speed_sp=0)
 
-"""manipulate the coordinate"""
+
 def refresh_cor(head_dir):
     """new method to refresh_cor"""
     global x,y
@@ -93,6 +93,7 @@ def turn(to_dir, turning_speed = default_sp, reversing_speed = 30):
     gs.mode = 'GYRO-RATE'
     gs.mode = 'GYRO-ANG'
 
+
     #make a turn
     leftMotor.run_forever(speed_sp = direction * turning_speed )
     rightMotor.run_forever(speed_sp = - direction * turning_speed )
@@ -113,40 +114,6 @@ def turn(to_dir, turning_speed = default_sp, reversing_speed = 30):
 
     head_dir = to_dir
     return 1
-
-"""try to approach the center by the distance to a wall"""
-def approach_wall(self):
-
-    wall_dir= usg.is_approach_wall()
-    print("is_approach = ", is_approach)
-
-    if wall_dir != 0:
-        # dont need to do anything
-        return 0
-    elif wall_dir == 1:
-        # wall is on the right
-        to_dir = head_dir+90
-
-
-    elif wall_dir == -1:
-        # wall is on the left
-        to_dir = head_dir-90
-    """special case of to_dir"""
-    if to_dir==-90:
-        to_dir =270
-    elif to_dir == 360:
-        to_dir = 0
-    # turn to that direction that have a wall
-    turn(to_dir)
-    # set the us sensor to the front
-    usg.turn(0)
-
-    """ Values need to be modify """
-    while usg.usL.value() < 160:
-        motor_move(-100,-100)
-    while usg.usL.value() > 170:
-        motor_move(100,100)
-
 
 # test cor_move
 def cor_move(head_dir,is_catch =0):
@@ -230,16 +197,9 @@ if __name__ == '__main__':
         else :
             this_node = tree.find_node(x,y)
         this_node.print_node()
-        # know what dir to go for next node
         to_dir =this_node.move_to(head_dir)
         print("next dir is ", to_dir,"head dir",head_dir)
-
-        # modify to the center of that node
-        approach_wall()
-        # turn to the direction of next node
         turn(to_dir)
-
-
 
         print("next dir is ", to_dir,"head dir",head_dir)
         cor_move(head_dir)

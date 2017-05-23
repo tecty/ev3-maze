@@ -69,13 +69,6 @@ class us_group:
         return [front,left,right]
     def modify_dir(self):
         """move to right is 1, move to left is -1"""
-        if self.usR.value()*10<self.wall_distance:
-            # now have wall on its right
-            """ Values should be modify"""
-            if self.usR.value()*10>140:
-                return 1
-            elif self.usR.value()*10<100:
-                return -1
         if self.usL.value()<self.wall_distance and self.motor_dir == 90:
             # now have wall on its left
             # note: because it is on otherside, to the dir
@@ -85,27 +78,16 @@ class us_group:
                 return -1
             elif self.usL.value()<100:
                 return 1
-        return 0
-
-
-    def is_approach_wall(self):
-        """approach the wall of right 1, move to left is -1"""
-        if self.usL.value()<self.wall_distance and self.motor_dir == 90:
-            # now have wall on its left
-            # determine whether it would approach to left
-            """ Values should be modify"""
-            if self.usL.value()>140:
-                return -1
-            elif self.usL.value()<100:
-                return -1
         if self.usR.value()*10<self.wall_distance:
             # now have wall on its right
             """ Values should be modify"""
             if self.usR.value()*10>140:
                 return 1
             elif self.usR.value()*10<100:
-                return 1
+                return -1
         return 0
+
+
 
     def is_front(self):
         # detect whether is a wall at front
