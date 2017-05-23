@@ -157,7 +157,7 @@ def cor_move(head_dir,is_catch =0):
                 is_color=1
 
 
-    motor.move()
+    motor_move()
     usg.turn(0)
 
 
