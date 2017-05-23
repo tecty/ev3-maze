@@ -118,7 +118,7 @@ def turn(to_dir, turning_speed = default_sp, reversing_speed = 30):
 def approach_wall():
 
     wall_dir= usg.is_approach_wall()
-    print("is_approach = ", is_approach)
+    print("is_approach = ", wall_dir)
 
     if wall_dir != 0:
         # dont need to do anything
