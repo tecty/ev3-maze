@@ -154,7 +154,7 @@ class us_group:
 
     def set_last_distance(self, accur_val):
         for i in range(0,2):
-            if accur_val[i]> wall_distance:
+            if accur_val[i]> self.wall_distance:
                 #  if detect the branch, set the last_distance into -1
                 last_distance[i]=-1
             else:
