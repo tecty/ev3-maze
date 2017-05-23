@@ -67,6 +67,22 @@ class us_group:
             else:
                 right = 0
         return [front,left,right]
+
+    """
+    return the accurate value of us [0] = left_accur
+                                    [1] = right_accur"""
+    def accur_us(self):
+        # array[5][2]
+        source_data =[[],[]] # length is 5 width is 2
+        for i in range(0,5):
+            # get 5 source_data in to list
+            source_data[0].append(self.usL.value())
+            source_data[1].append(self.usR.value()*10)
+            sleep(0.05)
+        # calculate the accurate data that has been detect
+        left_accur = sum(source_data[0])-max(source_data[0]) -min(source_data[0]) / float(len(source_data[0])-2)
+        right_accur = sum(source_data[1])-max(source_data[1])-min(source_data[1]) / float(len(source_data[1])-2)
+        return [left_accur,right_accur]
     def modify_dir(self):
         """move to right is 1, move to left is -1"""
         if self.usR.value()*10<self.wall_distance:
@@ -96,7 +112,7 @@ class us_group:
             # now have wall on its left
             # determine whether it would approach to left
             """ Values should be modify"""
-            if self.usL.value()>160: #
+            if self.usL.value()>165: #
                 return -1
             elif self.usL.value()<80: # 50 ?
                 return -1
