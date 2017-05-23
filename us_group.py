@@ -156,9 +156,9 @@ class us_group:
         for i in range(0,2):
             if accur_val[i]> self.wall_distance:
                 #  if detect the branch, set the last_distance into -1
-                last_distance[i]=-1
+                self.last_distance[i]=-1
             else:
-                last_distance[i]= accur_val[i]
+                self.last_distance[i]= accur_val[i]
 
     def modify_angle(self,accur_val):
         for i in range(0,2):
