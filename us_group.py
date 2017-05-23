@@ -74,7 +74,7 @@ class us_group:
     def accur_us(self):
         # array[5][2]
         source_data =[[],[]] # length is 5 width is 2
-        for i in range(0,5):
+        for i in range(0,6):
             # get 5 source_data in to list
             source_data[0].append(self.usL.value())
             source_data[1].append(self.usR.value()*10)
