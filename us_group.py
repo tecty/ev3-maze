@@ -163,7 +163,7 @@ class us_group:
 
     def modify_angle(self,accur_val):
         for i in range(0,2):
-            if self.last_distance[i] ==-1:
+            if self.last_distance[i] ==-1 or accur_val[i]> self.wall_distance:
                 # set the angle, prevent the for that dosn't calculate the angle
                 self.angle = 0
             else :
