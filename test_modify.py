@@ -5,7 +5,7 @@ usg.turn(90)
 print("finished initialisation")
 while  not btn.any():
     print("usL =",usg.usL.value(),"usR =", usg.usR.value()*10, "sum =",usg.usL.value()+usg.usR.value()*10)
-    print("modify has value ", usg.modify_dir)
+    print("modify has value ", usg.modify_dir())
     sleep(2)
 
 print("end of the programme")
