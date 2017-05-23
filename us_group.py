@@ -80,8 +80,8 @@ class us_group:
             source_data[1].append(self.usR.value()*10)
             sleep(0.05)
         # calculate the accurate data that has been detect
-        left_accur = sum(source_data[0])-max(source_data[0]) -min(source_data[0]) / float(len(source_data[0])-2)
-        right_accur = sum(source_data[1])-max(source_data[1])-min(source_data[1]) / float(len(source_data[1])-2)
+        left_accur = (sum(source_data[0])-max(source_data[0]) -min(source_data[0])) / float(len(source_data[0])-2)
+        right_accur = (sum(source_data[1])-max(source_data[1])-min(source_data[1]) )/ float(len(source_data[1])-2)
         return [left_accur,right_accur]
     def modify_dir(self):
         """move to right is 1, move to left is -1"""
