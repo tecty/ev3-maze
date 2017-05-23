@@ -150,7 +150,7 @@ def cor_move(head_dir,is_catch =0):
             if mdify_status !=3:
                 mdify_status =3
                 motor_move()
-        if cs.value()== can_color && is_catch ==0:
+        if cs.value()== can_color and is_catch ==0:
             motor_stop()
             sleep(0.1)
             if cs.value()== can_color:
@@ -222,6 +222,7 @@ if __name__ == '__main__':
     motor_move()
     sleep(0.3)
     motor_stop()
+    # catch the can
     catch_can()
 
     # set the node for the can at.
