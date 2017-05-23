@@ -185,23 +185,19 @@ def cor_move(head_dir,is_catch =0):
     print("to_distance = ",to_distance,"unit_length=",unit_length)
     mdify_status= 0
 
-    while usg.is_front()!=1 and rightMotor.position< to_distance and is_color == 0:
-        # detect the wall at front
-        if usg.modify_dir() == -1:
-            if mdify_status !=1:
-                mdify_status =1
-                print("modify to turn left")
-                motor_move(default_sp,default_sp+40)
-        elif usg.modify_dir()==1:
-            if mdify_status !=2:
-                mdify_status =2
-                print("modify to turn right")
-                motor_move(default_sp+40,default_sp)
-        else :
-            # couldn't modify or its moving forward
-            if mdify_status !=3:
-                mdify_status =3
-                motor_move()
+    motor_move(700,700)
+
+    """stage 1: fast move"""
+    while usg.is_front()!=1 and rightMotor.position< to_distance-200 and is_color == 0:
+        if cs.value()== can_color and is_catch ==0:
+            motor_stop()
+            sleep(0.1)
+            if cs.value()== can_color:
+                is_color=1
+                
+    """stage 2: slow move"""
+    motor_move(100,100)
+    while usg.is_front()!=1 and rightMotor.position< to_distance-200 and is_color == 0:
         if cs.value()== can_color and is_catch ==0:
             motor_stop()
             sleep(0.1)
