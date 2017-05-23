@@ -188,7 +188,7 @@ def cor_move(head_dir,is_catch =0):
     motor_move(520,500)
 
     """stage 1: fast move"""
-    while usg.is_front()!=1 and rightMotor.position< to_distance-200 and is_color == 0:
+    while usg.is_front()!=1 and rightMotor.position< to_distance-100 and is_color == 0:
         if cs.value()== can_color and is_catch ==0:
             motor_stop()
             sleep(0.1)
@@ -196,8 +196,8 @@ def cor_move(head_dir,is_catch =0):
                 is_color=1
 
     """stage 2: slow move"""
-    motor_move(100,100)
-    while usg.is_front()!=1 and rightMotor.position< to_distance-200 and is_color == 0:
+    motor_move()
+    while usg.is_front()!=1 and rightMotor.position< to_distance and is_color == 0:
         if cs.value()== can_color and is_catch ==0:
             motor_stop()
             sleep(0.1)
