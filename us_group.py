@@ -86,6 +86,7 @@ class us_group:
                                     [1] = right_accur"""
     def accur_us(self):
         # array[5][2]
+        self.turn(90)
         source_data =[[],[]] # length is 5 width is 2
         for i in range(0,6):
             # get 5 source_data in to list
