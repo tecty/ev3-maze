@@ -144,9 +144,11 @@ def approach_wall(self):
     """ Values need to be modify """
     while usg.usL.value() < 160:
         motor_move(-100,-100)
+        sleep(0.02)
     while usg.usL.value() > 170:
         motor_move(100,100)
-
+        sleep(0.02)
+    motor_stop()
 
 # test cor_move
 def cor_move(head_dir,is_catch =0):
