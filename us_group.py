@@ -77,10 +77,11 @@ class us_group:
                 return 1
             elif self.usR.value()*10<100:
                 return -1
-        if self.usL.value()*10<self.wall_distance:
+        if self.usL.value()*10<self.wall_distance and self.motor_dir == 90:
             # now have wall on its left
             # NOTE: because it is on otherside, to the dir
             # is oppisite from above
+            print ("trying modify with left motor")
             """ Values should be modify"""
             if self.usL.value()*10>140:
                 return -1
