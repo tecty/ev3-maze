@@ -115,7 +115,7 @@ def turn(to_dir, turning_speed = default_sp, reversing_speed = 30):
     return 1
 
 """try to approach the center by the distance to a wall"""
-def approach_wall(self):
+def approach_wall():
 
     wall_dir= usg.is_approach_wall()
     print("is_approach = ", is_approach)
