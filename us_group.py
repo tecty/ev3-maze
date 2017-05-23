@@ -96,14 +96,14 @@ class us_group:
             # now have wall on its left
             # determine whether it would approach to left
             """ Values should be modify"""
-            if self.usL.value()>140: #
+            if self.usL.value()>160: #
                 return -1
-            elif self.usL.value()<100: # 50 ?
+            elif self.usL.value()<80: # 50 ?
                 return -1
         if self.usR.value()*10<self.wall_distance:
             # now have wall on its right
             """ Values should be modify"""
-            if self.usR.value()*10>140:
+            if self.usR.value()*10>200:
                 return 1
             elif self.usR.value()*10<100: # 70?
                 return 1

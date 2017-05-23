@@ -119,7 +119,7 @@ def approach_wall():
 
     wall_dir= usg.is_approach_wall()
     print("is_approach = ", wall_dir)
-
+    print("usL =",usg.usL.value(),"usR =", usg.usR.value()*10)
     if wall_dir == 0:
         # dont need to do anything
         return 0
