@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from time import sleep
 from ev3dev.ev3 import *
+from math import *
 
 class us_group:
     """docstring for us_group."""
@@ -21,6 +22,13 @@ class us_group:
         # assign sensor
         self.usL = UltrasonicSensor(INPUT_2);	assert self.usL.connected
         self.usR = UltrasonicSensor(INPUT_1);	assert self.usR.connected
+
+        # modify angle
+        self.last_distance = [-1,-1]
+        self.modify_distance = 20
+        self.angle = 0
+        self.modify_direction = 0 #-1 - left, 1 - right
+
 
     def turn(self,to_dir):
         pos = [0,-90]
@@ -47,25 +55,30 @@ class us_group:
     def is_wall(self):
         # detecting front
         front = -self.is_front()
-        # detecting left and right
-        self.turn(90)
-        left  = self.usL.value()
-        right = self.usR.value()*10
+        # detecting accur left and right distance
+        accur_val = self.accur_us()
+        # calculate the modify_angle from this accur_val
+        self.modify_angle(accur_val);
 
         """calculate the return result"""
         # left and right
-        if left + right < self.sonar_sum:
+        if accur_val[0] +  accur_val[1] < self.sonar_sum:
             left  = -1
             right = -1
         else:
-            if left  < self.wall_distance:
+            if accur_val[0]  < self.wall_distance:
                 left = -1
             else:
                 left =  0
-            if right < self.wall_distance:
+            if accur_val[1]  < self.wall_distance:
                 right = -1
             else:
                 right = 0
+
+        # after calculate is wall, set the val into this obj
+        self.set_last_distance(accur_val);
+
+        # return the wall info by array
         return [front,left,right]
 
     """
@@ -138,6 +151,29 @@ class us_group:
                 return 0
         else:
             return 0
+
+    def set_last_distance(self, accur_val):
+        for i in range(0,2):
+            if accur_val[i]> wall_distance:
+                #  if detect the branch, set the last_distance into -1
+                last_distance[i]=-1
+            else:
+                last_distance[i]= accur_val[i]
+
+    def modify_angle(self,accur_val):
+        for i in range(0,2):
+            if self.last_distance[i] ==-1:
+                # set the angle, prevent the for that dosn't calculate the angle
+                self.angle = 0
+            else :
+                diff =pow(-1,i)* (accur_val[i] - self.last_distance[i])
+                # calculate the angle would be modify
+                self.angle = asin(diff/420)*60
+                print("Angle would be modify is", self.angle);
+                # break this loop so the angle wouldn't calculate twice
+                break
+
+
 
 
     """unneccessary code"""

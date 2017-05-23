@@ -76,7 +76,7 @@ def refresh_cor(head_dir):
         y-=1
     elif head_dir==270:
         x-=1
-def turn(to_dir, turning_speed = default_sp, reversing_speed = 30):
+def turn(to_dir):
     global head_dir
     direction = 1
     angle = to_dir - head_dir
@@ -94,8 +94,7 @@ def turn(to_dir, turning_speed = default_sp, reversing_speed = 30):
     gs.mode = 'GYRO-ANG'
 
     #make a turn
-    leftMotor.run_forever(speed_sp = direction * turning_speed )
-    rightMotor.run_forever(speed_sp = - direction * turning_speed )
+    motor_move(direction*default_sp,-direction*default_sp)
 
     while gs.value() * direction < angle:
         sleep(0.005)
@@ -103,9 +102,9 @@ def turn(to_dir, turning_speed = default_sp, reversing_speed = 30):
     motor_stop()
     sleep(0.1)
 
+    # revise to the angle that wanted # revise speed is 30
+    motor_move(-direction*30,direction*30)
     while gs.value() * direction > angle:
-        leftMotor.run_forever(speed_sp = - direction * reversing_speed)
-        rightMotor.run_forever(speed_sp = direction * reversing_speed)
         sleep(0.005)
 
     motor_stop()
@@ -116,7 +115,6 @@ def turn(to_dir, turning_speed = default_sp, reversing_speed = 30):
 
 """try to approach the center by the distance to a wall"""
 def approach_wall():
-
     wall_dir= usg.is_approach_wall()
     print("is_approach = ", wall_dir)
     print("usL =",usg.usL.value(),"usR =", usg.usR.value()*10)
@@ -153,6 +151,29 @@ def approach_wall():
         sleep(0.02)
     motor_stop()
 
+def modify_angle():
+
+    if abs(usg.angle)>3 :
+        # try to modify by the angle
+        print("modify for angle", usg.angle)
+        gs.mode = 'GYRO-RATE'
+        gs.mode = 'GYRO-ANG'
+        if usg.angle>0:
+            direction = 1
+        else:
+            direction = -1
+
+        # start modify the angle
+        motor_move(direction * 30,-direction * 30)
+        while abs(gs.value()) < abs(angle):
+            sleep(0.005)
+        # end of this modify
+        motor_stop()
+
+        # set the accur_us after modify into usg
+        usg.set_last_distance(usg.accur_us())
+
+
 # test cor_move
 def cor_move(head_dir,is_catch =0):
     global before_distance, is_color
@@ -163,40 +184,6 @@ def cor_move(head_dir,is_catch =0):
     to_distance = rightMotor.position+unit_length
     print("to_distance = ",to_distance,"unit_length=",unit_length)
     mdify_status= 0
-
-
-    """first part of moving"""
-    usg.turn(90)
-    while rightMotor.position< to_distance-300 and is_color == 0:
-        # same code as normal move, but dont detect the wall at front
-        if usg.modify_dir() == -1:
-            if mdify_status !=1:
-                mdify_status =1
-                print("modify to turn left")
-                motor_move(default_sp,default_sp+40)
-        elif usg.modify_dir()==1:
-            if mdify_status !=2:
-                mdify_status =2
-                print("modify to turn right")
-                motor_move(default_sp+40,default_sp)
-        else :
-            # couldn't modify or its moving forward
-            if mdify_status !=3:
-                mdify_status =3
-                motor_move()
-        if cs.value()== can_color and is_catch ==0:
-            motor_stop()
-            sleep(0.1)
-            if cs.value()== can_color:
-                is_color=1
-
-
-    motor_move()
-    usg.turn(0)
-
-
-
-    """continue moving and detect the wall at front"""
 
     while usg.is_front()!=1 and rightMotor.position< to_distance and is_color == 0:
         # detect the wall at front
@@ -248,6 +235,9 @@ if __name__ == '__main__':
 
         print("next dir is ", to_dir,"head dir",head_dir)
         cor_move(head_dir)
+        # at new node, try to modify robot's angle
+        modify_angle()
+
 
 
     """code after found the can"""
@@ -283,6 +273,9 @@ if __name__ == '__main__':
     #refresh the cordinate by a low level func so it won't move
     refresh_cor(head_dir)
 
+    # refresh the last_distance so the robot can modify its angle at next node
+    usg.set_last_distance(usg.accur_us())
+
     # reset the is_color value so it could move back
     is_color = 0
 
@@ -296,10 +289,13 @@ if __name__ == '__main__':
         print ("here is",x,",",y)
 
         cor_move(head_dir,1)
+        modify_angle()
         print ("next dir is",head_dir)
 
     print("finally here is:",x,",",y)
 
+
+    # finally stop the robot
     motor_stop()
     stop_catch()
     print("end of the programme")
