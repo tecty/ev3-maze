@@ -77,6 +77,16 @@ class us_group:
                 return 1
             elif self.usR.value()*10<100:
                 return -1
+        if self.usL.value()*10<self.wall_distance:
+            # now have wall on its left
+            # NOTE: because it is on otherside, to the dir
+            # is oppisite from above
+            """ Values should be modify"""
+            if self.usL.value()*10>140:
+                return -1
+            elif self.usL.value()*10<100:
+                return 1
+
         return 0
     def is_front(self):
         # detect whether is a wall at front

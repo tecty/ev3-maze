@@ -125,6 +125,45 @@ def cor_move(head_dir,is_catch =0):
     to_distance = rightMotor.position+unit_length
     print("to_distance = ",to_distance,"unit_length=",unit_length)
     mdify_status= 0
+
+
+    """first part of moving"""
+    usg.turn(90)
+    while rightMotor.position< to_distance-200 and is_color == 0:
+        # same code as normal move, but dont detect the wall at front
+        if usg.modify_dir() == -1:
+            if mdify_status !=1:
+                mdify_status =1
+                print("modify to turn left")
+                motor_move(default_sp,default_sp+100)
+                sleep(0.1)
+                motor_move()
+        elif usg.modify_dir()==1:
+            if mdify_status !=2:
+                mdify_status =2
+                print("modify to turn right")
+                motor_move(default_sp+100,default_sp)
+                sleep(0.1)
+                motor_move()
+        else :
+            # couldn't modify or its moving forward
+            if mdify_status !=3:
+                mdify_status =3
+                motor_move()
+        if cs.value()== can_color && is_catch ==0:
+            motor_stop()
+            sleep(0.1)
+            if cs.value()== can_color:
+                is_color=1
+
+
+    motor.move()
+    usg.turn(0)
+
+
+
+    """continue moving and detect the wall at front"""
+
     while usg.is_front()!=1 and rightMotor.position< to_distance and is_color == 0:
         # detect the wall at front
         if usg.modify_dir() == -1:
@@ -169,6 +208,7 @@ if __name__ == '__main__':
         to_dir =this_node.move_to(head_dir)
         print("next dir is ", to_dir,"head dir",head_dir)
         turn(to_dir)
+
         print("next dir is ", to_dir,"head dir",head_dir)
         cor_move(head_dir)
 
