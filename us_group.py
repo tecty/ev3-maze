@@ -79,12 +79,12 @@ class us_group:
                 return -1
         if self.usL.value()<self.wall_distance and self.motor_dir == 90:
             # now have wall on its left
-            # NOTE: because it is on otherside, to the dir
+            # note: because it is on otherside, to the dir
             # is oppisite from above
             """ Values should be modify"""
-            if self.usL.value()*10>140:
+            if self.usL.value()>140:
                 return -1
-            elif self.usL.value()*10<100:
+            elif self.usL.value()<100:
                 return 1
 
         return 0
