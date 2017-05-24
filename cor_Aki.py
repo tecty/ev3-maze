@@ -158,7 +158,7 @@ def approach_wall():
 
 def modify_angle():
 
-    if abs(usg.angle)>3 :
+    if abs(usg.angle)>=1:
         # try to modify by the angle
         print("modify for angle", usg.angle)
         gs.mode = 'GYRO-RATE'
