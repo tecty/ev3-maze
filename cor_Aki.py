@@ -226,6 +226,8 @@ if __name__ == '__main__':
         # know what dir to go for next node
         to_dir =this_node.move_to(head_dir)
         print("next dir is ", to_dir,"head dir",head_dir)
+        # at this_node, try to modify robot's angle
+        modify_angle()
 
         # modify to the center of that node
         approach_wall()
@@ -234,8 +236,6 @@ if __name__ == '__main__':
 
 
 
-        # at this_node, try to modify robot's angle
-        modify_angle()
         print("next dir is ", to_dir,"head dir",head_dir)
         cor_move(head_dir)
 
