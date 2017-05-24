@@ -208,11 +208,15 @@ def cor_move(head_dir,is_catch =0):
     motor_stop()
 
 usg=us_group()
+
+# set the info of first node
+usg.set_last_distance(usg.accur_us())
 print("finished initialisation")
 while not btn.any():
     usg.is_wall()
-    cor_move(head_dir)
+    # modify_angle of this node
     modify_angle()
+    cor_move(head_dir)
     print("finished one cor_moves")
     sleep(3)
 print("End of the programme")
