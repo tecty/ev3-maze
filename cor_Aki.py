@@ -125,7 +125,7 @@ def turn(to_dir):
 
 """try to approach the center by the distance to a wall"""
 def approach_wall():
-    if usg.is_front():
+    if usg.accur_is_front():
         # if front has wall, try to approach the wall at front
         approach_move()
 

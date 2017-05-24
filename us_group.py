@@ -98,17 +98,17 @@ class us_group:
         right_accur = (sum(source_data[1])-max(source_data[1])-min(source_data[1]) )/ float(len(source_data[1])-2)
         return [left_accur,right_accur]
 
-    # def accur_is_front(self):
-    #     self.turn(0)
-    #     source_data = []
-    #     for i in range(0,6):
-    #         source_data.append(self.usL.value())
-    #         sleep(0.05)
-    #
-    #     front_accur = (sum(source_data)-max(source_data)-min(source_data))/float(len(source_data)-2)
-    #
-    #     if front_accur<self.wall_distance:
-    #         return 1
+    def accur_is_front(self):
+        self.turn(0)
+        source_data = []
+        for i in range(0,6):
+            source_data.append(self.usL.value())
+            sleep(0.05)
+
+        front_accur = (sum(source_data)-max(source_data)-min(source_data))/float(len(source_data)-2)
+
+        if front_accur<self.wall_distance:
+            return 1
         return 0
 
     def is_approach_wall(self):
