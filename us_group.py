@@ -97,28 +97,9 @@ class us_group:
         left_accur = (sum(source_data[0])-max(source_data[0]) -min(source_data[0])) / float(len(source_data[0])-2)
         right_accur = (sum(source_data[1])-max(source_data[1])-min(source_data[1]) )/ float(len(source_data[1])-2)
         return [left_accur,right_accur]
-    def modify_dir(self):
-        """move to right is 1, move to left is -1"""
-        if self.usR.value()*10<self.wall_distance:
-            # now have wall on its right
-            """ Values should be modify"""
-            if self.usR.value()*10>140:
-                return 1
-            elif self.usR.value()*10<100:
-                return -1
-        if self.usL.value()<self.wall_distance and self.motor_dir == 90:
-            # now have wall on its left
-            # note: because it is on otherside, to the dir
-            # is oppisite from above
-            """ Values should be modify"""
-            if self.usL.value()>140:
-                return -1
-            elif self.usL.value()<100:
-                return 1
-        return 0
-
 
     def is_approach_wall(self):
+        """should be redefine by the last_distance"""
         # set the sensor to 90
         self.turn(90)
         """approach the wall of right 1, move to left is -1"""
@@ -170,7 +151,7 @@ class us_group:
                 diff =pow(-1,i)* (accur_val[i] - self.last_distance[i])
                 # calculate the angle would be modify
                 print("diff new is ",diff)
-                self.angle = asin(diff/420)*60
+                self.angle = asin(diff/420)*50
                 print("Angle would be modify is", self.angle);
                 # break this loop so the angle wouldn't calculate twice
                 break

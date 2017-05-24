@@ -210,7 +210,7 @@ def cor_move(head_dir,is_catch =0):
 usg=us_group()
 
 # set the info of first node
-usg.set_last_distance(usg.accur_us())
+# usg.set_last_distance(usg.accur_us())
 print("finished initialisation")
 while not btn.any():
     usg.is_wall()

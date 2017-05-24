@@ -230,10 +230,10 @@ if __name__ == '__main__':
 
 
 
+        # at this_node, try to modify robot's angle
+        modify_angle()
         print("next dir is ", to_dir,"head dir",head_dir)
         cor_move(head_dir)
-        # at new node, try to modify robot's angle
-        modify_angle()
 
 
 
