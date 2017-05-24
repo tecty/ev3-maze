@@ -27,12 +27,15 @@ head_dir = 0
 
 # store the distance to the wall before cor_move
 before_distance=0
+# sign of last time whether it is stop by is front
+front_wall_break =0
 # store whether the sensor detected red color
 is_color=0
 # determin whether it has catch the can
 is_catch =0
 # initialisation the tree var
 tree = Tree()
+
 
 """config part these values should be modify """
 # length of one unit
@@ -125,7 +128,7 @@ def turn(to_dir):
 
 """try to approach the center by the distance to a wall"""
 def approach_wall():
-    if usg.accur_is_front():
+    if front_wall_break:
         # if front has wall, try to approach the wall at front
         approach_move()
 
@@ -203,7 +206,7 @@ def modify_angle():
 
 # test cor_move
 def cor_move(head_dir):
-    global before_distance, is_color
+    global before_distance, is_color, front_wall_break
     # refresh the global cordinate by its head direction
     refresh_cor(head_dir)
     # record the position before it move forward
@@ -211,10 +214,15 @@ def cor_move(head_dir):
     to_distance = rightMotor.position+unit_length
     print("to_distance = ",to_distance,"unit_length=",unit_length)
     mdify_status= 0
-
+    # front wall break would set to 0
+    front_wall_break = 0
 
     motor_move()
-    while usg.is_front()!=1 and rightMotor.position< to_distance and is_color == 0:
+    while  rightMotor.position< to_distance and is_color == 0:
+        if usg.is_front():
+            # set the front_wall_break to 1, so approach front would work
+            front_wall_break = 1;
+            break
         if cs.value()== can_color and is_catch ==0:
             motor_stop()
             sleep(0.1)
