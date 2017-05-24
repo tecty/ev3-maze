@@ -40,7 +40,7 @@ tree = Tree()
 """config part these values should be modify """
 # length of one unit
 # unit_length=830 # for clancy in normal speed
-unit_length=900 # for fast speed
+unit_length=950 # for fast speed
 # unit_length=870 # for E4
 # the color of the can 5 is red
 can_color =5
@@ -222,6 +222,7 @@ def cor_move(head_dir):
         if usg.is_front():
             # set the front_wall_break to 1, so approach front would work
             front_wall_break = 1;
+            print ("programme breaks here of is front")
             break
         if cs.value()== can_color and is_catch ==0:
             motor_stop()
@@ -323,7 +324,7 @@ if __name__ == '__main__':
         turn(to_dir)
         print ("here is",x,",",y)
 
-        cor_move(head_dir,1)
+        cor_move(head_dir)
         modify_angle()
         print ("next dir is",head_dir)
 
