@@ -169,15 +169,15 @@ def approach_move(catched = is_catch):
     while usg.usL.value() > 170:
         motor_move(100,100)
         # only when it try to approach the wall at front, can have the can to detect
-        if cs.value()== can_color and catched ==0:
-            motor_stop()
-            sleep(0.1)
-            if cs.value()== can_color:
-                is_color=1
-                # break this loop
-                break
-        else:
-            sleep(0.1)
+        # if cs.value()== can_color and catched ==0:
+        #     motor_stop()
+        #     sleep(0.1)
+        #     if cs.value()== can_color:
+        #         is_color=1
+        #         # break this loop
+        #         break
+        # else:
+        sleep(0.1)
 
     motor_stop()
 
@@ -222,7 +222,6 @@ def cor_move(head_dir):
         if usg.is_front():
             # set the front_wall_break to 1, so approach front would work
             front_wall_break = 1;
-            print ("programme breaks here of is front")
             break
         if cs.value()== can_color and is_catch ==0:
             motor_stop()
