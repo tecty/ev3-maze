@@ -255,7 +255,7 @@ if __name__ == '__main__':
     # revise to the last node
     motor_move(-200,-200)
     print("old position is",rightMotor.position,"before_distance is",before_distance)
-    while (not btn.any()) and rightMotor.position<before_distance:
+    while (not btn.any()) and rightMotor.position>before_distance:
         sleep(0.01)
     motor_stop()
 
