@@ -116,7 +116,7 @@ class us_group:
         # set the sensor to 90
         # self.turn(90)
         """approach the wall of right 1, move to left is -1"""
-        if self.last_distance[0]<self.wall_distance :
+        if self.last_distance[0]<self.wall_distance and self.last_distance[0]!= -1:
             # now have wall on its left
             # determine whether it would approach to left
             """ Values should be modify"""
@@ -124,7 +124,7 @@ class us_group:
                 return -1
             elif self.last_distance[0]<80: # 50 ?
                 return -1
-        if self.last_distance[1]<self.wall_distance:
+        if self.last_distance[1]<self.wall_distance and self.last_distance[1]!= -1:
             # now have wall on its right
             """ Values should be modify"""
             if self.last_distance[1]>190:
