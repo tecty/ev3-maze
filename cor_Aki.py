@@ -70,6 +70,8 @@ def catch_can():
     is_catch =1
     liftMotor.run_forever(speed_sp=-50)
 def stop_catch():
+    liftMotor.run_forever(speed_sp =100)
+    sleep(0.1)
     liftMotor.stop()
     liftMotor.run_forever(speed_sp=0)
 
@@ -272,7 +274,7 @@ if __name__ == '__main__':
     Sound.tone([(1000, 500, 500)] * 3)
 
     # reach the can
-    motor_move()
+    motor_move(100,100)
     sleep(0.3)
     motor_stop()
     # catch the can
