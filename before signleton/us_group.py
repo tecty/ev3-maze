@@ -4,33 +4,31 @@ from ev3dev.ev3 import *
 from math import *
 
 class us_group:
-    """us_group contains the method of us sensors."""
-    def __new__(self):
-        if not hasattr(self, 'instance'):
-            # one way to do Singleton
-            self.instance = super(Singleton, self).__new__(self)
-            """ one time initial code, only run onetime"""
-            # the status of the motor dir
-            self.motor_dir =34
-            """These values should be modify"""
-            # critical values of detecting walls
-            self.sonar_sum = 280
-            self.wall_distance  = 250
-            self.front_wall_dis = 220
-            # assign motor
-            self.motor  = MediumMotor(OUTPUT_D);	assert self.motor.connected
-            # assign sensor
-            self.usL = UltrasonicSensor(INPUT_2);	assert self.usL.connected
-            self.usR = UltrasonicSensor(INPUT_1);	assert self.usR.connected
+    """docstring for us_group."""
+    def __init__(self):
+        super(us_group, self).__init__()
+        # assign mode, 0 is forward, 1 is backward
+        self.__mode= 0
 
-            # modify angle
-            self.last_distance = [-1,-1]
-            self.modify_distance = 20
-            self.angle = 0
+        # the status of the motor dir
+        self.motor_dir =34
+        """These values should be modify"""
+        # critical values of detecting walls
+        self.sonar_sum = 280
+        self.wall_distance  = 250
+        self.front_wall_dis = 220
+        # assign motor
+        self.motor  = MediumMotor(OUTPUT_D);	assert self.motor.connected
+        # assign sensor
+        self.usL = UltrasonicSensor(INPUT_2);	assert self.usL.connected
+        self.usR = UltrasonicSensor(INPUT_1);	assert self.usR.connected
 
-        # if have one instance of this class,
-        # return the instance that have been created
-        return self.instance
+        # modify angle
+        self.last_distance = [-1,-1]
+        self.modify_distance = 20
+        self.angle = 0
+        self.modify_direction = 0 #-1 - left, 1 - right
+
 
     def turn(self,to_dir):
         pos = [0,-90]

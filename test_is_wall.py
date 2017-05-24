@@ -4,6 +4,7 @@ usg=us_group()
 usg.turn(90)
 print("finished initialisation")
 while  not btn.any():
+    # get the list of wall result
     walls = usg.is_wall()
 
     print("front", walls[0],"left ",walls[1],"right", walls[2])
