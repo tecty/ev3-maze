@@ -114,9 +114,9 @@ class us_group:
         if self.usR.value()*10<self.wall_distance:
             # now have wall on its right
             """ Values should be modify"""
-            if self.usR.value()*10>200:
+            if self.usR.value()*10>190:
                 return 1
-            elif self.usR.value()*10<100: # 70?
+            elif self.usR.value()*10<90: # 70?
                 return 1
         return 0
 
