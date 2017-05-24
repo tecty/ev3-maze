@@ -15,7 +15,7 @@ class us_group:
         """These values should be modify"""
         # critical values of detecting walls
         self.sonar_sum = 280
-        self.wall_distance  = 250
+        self.wall_distance  = 330
         self.front_wall_dis = 220
         # assign motor
         self.motor  = MediumMotor(OUTPUT_D);	assert self.motor.connected

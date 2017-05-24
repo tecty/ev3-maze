@@ -214,6 +214,8 @@ if __name__ == '__main__':
             this_node= tree.add_node(x,y,usg.is_wall(),head_dir)
         else :
             this_node = tree.find_node(x,y)
+            # redo the usg.is_wall, so that it would calculate the new angle
+            usg.is_wall()
         this_node.print_node()
         # know what dir to go for next node
         to_dir =this_node.move_to(head_dir)
@@ -276,9 +278,18 @@ if __name__ == '__main__':
     """ revise its route """
     print("now is retreat it's route")
     while (x!=0 or y!=0) and not btn.any() :
+        # tring to find out the modify angle
+        usg.is_wall()
         this_node = tree.find_node(x,y)
         this_node.print_node()
         to_dir =this_node.back_to(head_dir)
+
+        """modify the position to that unit"""
+        # trying to modify_angle
+        modify_angle()
+        # trying to modify the distance to wall
+        approach_wall()
+
         turn(to_dir)
         print ("here is",x,",",y)
 
