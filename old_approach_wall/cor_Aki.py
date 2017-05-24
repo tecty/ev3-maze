@@ -29,8 +29,6 @@ head_dir = 0
 before_distance=0
 # store whether the sensor detected red color
 is_color=0
-# determin whether it has catch the can
-is_catch =0
 # initialisation the tree var
 tree = Tree()
 
@@ -59,12 +57,9 @@ def motor_stop():
     motor_move(0,0)
 
 def catch_can():
-    global is_catch
     liftMotor.run_forever(speed_sp =-100)
     sleep(1)
     liftMotor.stop()
-    # set the robot that have catch the can
-    is_catch =1
     liftMotor.run_forever(speed_sp=-50)
 def stop_catch():
     liftMotor.stop()
@@ -125,10 +120,6 @@ def turn(to_dir):
 
 """try to approach the center by the distance to a wall"""
 def approach_wall():
-    if usg.is_front():
-        # if front has wall, try to approach the wall at front
-        approach_move()
-
     wall_dir= usg.is_approach_wall()
     print("is_approach = ", wall_dir)
     print("usL =",usg.usL.value(),"usR =", usg.usR.value()*10)
@@ -148,34 +139,21 @@ def approach_wall():
         to_dir =270
     elif to_dir == 360:
         to_dir = 0
-    print("trying to trun to ", to_dir,"to approach wall")
+    print("trying to trun to ", to_dir)
     # turn to that direction that have a wall
     turn(to_dir)
-    #  after turned, couldn't detect the can, to prevent unexpected error
-    approach_move(1)
-
-def approach_move(catched = is_catch):
-    global is_color
-    print("trying to approach the wall")
     # set the us sensor to the front
     usg.turn(0)
+
+    print(" trying to approach the wall")
+
     """ Values need to be modify """
     while usg.usL.value() < 160:
         motor_move(-100,-100)
         sleep(0.02)
     while usg.usL.value() > 170:
         motor_move(100,100)
-        # only when it try to approach the wall at front, can have the can to detect
-        if cs.value()== can_color and catched ==0:
-            motor_stop()
-            sleep(0.1)
-            if cs.value()== can_color:
-                is_color=1
-                # break this loop
-                break
-        else:
-            sleep(0.1)
-
+        sleep(0.02)
     motor_stop()
 
 def modify_angle():
@@ -202,7 +180,7 @@ def modify_angle():
 
 
 # test cor_move
-def cor_move(head_dir):
+def cor_move(head_dir,is_catch =0):
     global before_distance, is_color
     # refresh the global cordinate by its head direction
     refresh_cor(head_dir)
@@ -220,7 +198,6 @@ def cor_move(head_dir):
             sleep(0.1)
             if cs.value()== can_color:
                 is_color=1
-                break
         else:
             sleep(0.1)
     motor_stop()
