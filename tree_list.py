@@ -14,7 +14,7 @@ class Tree:
         if head_dir ==180:
             this_node= Node(x,y,0,wall_list[1],wall_list[0],wall_list[2])
         if head_dir ==270:
-            this_node= Node(x,y,wall_list[2],wall_list[0],wall_list[1],0)
+            this_node= Node(x,y,wall_list[2],0,wall_list[1],wall_list[0])
         self.nodes.append(this_node)
         return this_node
     def find_node(self,x,y):
