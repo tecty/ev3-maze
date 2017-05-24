@@ -190,17 +190,7 @@ def cor_move(head_dir,is_catch =0):
     print("to_distance = ",to_distance,"unit_length=",unit_length)
     mdify_status= 0
 
-    motor_move(500,530)
 
-    """stage 1: fast move"""
-    while usg.is_front()!=1 and rightMotor.position< to_distance-100 and is_color == 0:
-        if cs.value()== can_color and is_catch ==0:
-            motor_stop()
-            sleep(0.1)
-            if cs.value()== can_color:
-                is_color=1
-
-    """stage 2: slow move"""
     motor_move()
     while usg.is_front()!=1 and rightMotor.position< to_distance and is_color == 0:
         if cs.value()== can_color and is_catch ==0:
@@ -208,6 +198,8 @@ def cor_move(head_dir,is_catch =0):
             sleep(0.1)
             if cs.value()== can_color:
                 is_color=1
+        else:
+            sleep(0.1)
     motor_stop()
 
 
