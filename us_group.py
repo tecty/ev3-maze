@@ -85,11 +85,11 @@ class us_group:
     return the accurate value of us [0] = left_accur
                                     [1] = right_accur"""
     def accur_us(self):
-        # array[5][2]
+        # array[6][2]
         self.turn(90)
-        source_data =[[],[]] # length is 5 width is 2
+        source_data =[[],[]] # length is 6 width is 2
         for i in range(0,6):
-            # get 5 source_data in to list
+            # get 6 source_data in to list
             source_data[0].append(self.usL.value())
             source_data[1].append(self.usR.value()*10)
             sleep(0.05)
@@ -98,25 +98,38 @@ class us_group:
         right_accur = (sum(source_data[1])-max(source_data[1])-min(source_data[1]) )/ float(len(source_data[1])-2)
         return [left_accur,right_accur]
 
+    # def accur_is_front(self):
+    #     self.turn(0)
+    #     source_data = []
+    #     for i in range(0,6):
+    #         source_data.append(self.usL.value())
+    #         sleep(0.05)
+    #
+    #     front_accur = (sum(source_data)-max(source_data)-min(source_data))/float(len(source_data)-2)
+    #
+    #     if front_accur<self.wall_distance:
+    #         return 1
+        return 0
+
     def is_approach_wall(self):
         """should be redefine by the last_distance"""
         # set the sensor to 90
-        self.turn(90)
+        # self.turn(90)
         """approach the wall of right 1, move to left is -1"""
-        if self.usL.value()<self.wall_distance :
+        if self.last_distance[0]<self.wall_distance :
             # now have wall on its left
             # determine whether it would approach to left
             """ Values should be modify"""
-            if self.usL.value()>165: #
+            if self.last_distance[0]>165: #
                 return -1
-            elif self.usL.value()<80: # 50 ?
+            elif self.last_distance[0]<80: # 50 ?
                 return -1
-        if self.usR.value()*10<self.wall_distance:
+        if self.last_distance[1]<self.wall_distance:
             # now have wall on its right
             """ Values should be modify"""
-            if self.usR.value()*10>190:
+            if self.last_distance[1]>190:
                 return 1
-            elif self.usR.value()*10<90: # 70?
+            elif self.last_distance[1]<90: # 70?
                 return 1
         return 0
 
