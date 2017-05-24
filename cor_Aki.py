@@ -35,7 +35,7 @@ tree = Tree()
 """config part these values should be modify """
 # length of one unit
 # unit_length=830 # for clancy in normal speed
-unit_length=1050 # for clancy in normal speed
+unit_length=900 # for fast speed
 # unit_length=870 # for E4
 # the color of the can 5 is red
 can_color =5
