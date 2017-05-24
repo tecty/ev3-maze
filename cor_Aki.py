@@ -112,6 +112,10 @@ def turn(to_dir):
     sleep(0.1)
 
     head_dir = to_dir
+
+    # update the last_distance to usg,
+    # because it have been changed its relative wall position
+    usg.set_last_distance(usg.accur_us())
     return 1
 
 """try to approach the center by the distance to a wall"""
