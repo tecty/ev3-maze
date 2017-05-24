@@ -40,14 +40,14 @@ unit_length=1050 # for clancy in normal speed
 # the color of the can 5 is red
 can_color =5
 # speed that motor run in default
-default_sp=250
+default_sp=300
 
 """defined in us_group"""
 # theshold of detecting a wall
 # wall_distance= 280
 
 
-def motor_move(leftSpeed=default_sp,rightSpeed=default_sp):
+def motor_move(leftSpeed=default_sp,rightSpeed=default_sp+10):
     rightMotor.run_forever(speed_sp=rightSpeed)
     leftMotor.run_forever(speed_sp=leftSpeed)
 
