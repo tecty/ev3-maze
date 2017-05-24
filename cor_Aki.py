@@ -71,7 +71,7 @@ def catch_can():
     liftMotor.run_forever(speed_sp=-50)
 def stop_catch():
     liftMotor.run_forever(speed_sp =100)
-    sleep(0.1)
+    sleep(0.5)
     liftMotor.stop()
     liftMotor.run_forever(speed_sp=0)
 
