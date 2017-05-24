@@ -48,8 +48,8 @@ default_sp=250
 
 
 def motor_move(leftSpeed=default_sp,rightSpeed=default_sp):
-    leftMotor.run_forever(speed_sp=leftSpeed)
     rightMotor.run_forever(speed_sp=rightSpeed)
+    leftMotor.run_forever(speed_sp=leftSpeed)
 
 def motor_stop():
     leftMotor.stop()
@@ -186,7 +186,7 @@ def cor_move(head_dir,is_catch =0):
     print("to_distance = ",to_distance,"unit_length=",unit_length)
     mdify_status= 0
 
-    motor_move(500,510)
+    motor_move(500,530)
 
     """stage 1: fast move"""
     while usg.is_front()!=1 and rightMotor.position< to_distance-100 and is_color == 0:
